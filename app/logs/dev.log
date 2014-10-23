@@ -1,0 +1,6 @@
+[2014-10-23 17:04:13] event.DEBUG: Notified event "console.command" to listener "Symfony\Bridge\Monolog\Handler\ConsoleHandler::onCommand". [] []
+[2014-10-23 17:04:13] event.DEBUG: Notified event "console.terminate" to listener "Symfony\Bundle\SwiftmailerBundle\EventListener\EmailSenderListener::onTerminate". [] []
+[2014-10-23 17:04:13] event.DEBUG: Notified event "console.terminate" to listener "Symfony\Bridge\Monolog\Handler\ConsoleHandler::onTerminate". [] []
+[2014-10-23 17:04:13] event.DEBUG: Notified event "console.command" to listener "Symfony\Bridge\Monolog\Handler\ConsoleHandler::onCommand". [] []
+[2014-10-23 17:04:13] event.DEBUG: Notified event "console.terminate" to listener "Symfony\Bundle\SwiftmailerBundle\EventListener\EmailSenderListener::onTerminate". [] []
+[2014-10-23 17:04:13] event.DEBUG: Notified event "console.terminate" to listener "Symfony\Bridge\Monolog\Handler\ConsoleHandler::onTerminate". [] []
