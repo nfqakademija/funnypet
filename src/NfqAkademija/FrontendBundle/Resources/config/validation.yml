@@ -1,0 +1,15 @@
+#src/NfqAkademija/NfqAkademijaFrontendBundle/Resources/config/validation.yml
+NfqAkademija\FrontendBundle\Entity\Image:
+    properties:
+        fileName:
+            - Image:
+                mimeTypes: [image/jpeg, image/png]
+                mimeTypesMessage: Please upload a valid image
+                minWidth: 300
+                minWidthMessage: Image width is too small
+                maxWidth: 2000
+                maxWidthMessage: Image width is too big
+                minHeight: 300
+                minHeightMessage: Image height is too small
+                maxHeight: 2000
+                maxHeightMessage: Image height is too big

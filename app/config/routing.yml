@@ -1,0 +1,4 @@
+nfq_akademija_frontend:
+    resource: "@NfqAkademijaFrontendBundle/Resources/config/routing.yml"
+    prefix:   /
+

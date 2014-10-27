@@ -1,0 +1,21 @@
+{#{% extends '::base.html.twig.' %}#}
+
+{% block body %}
+
+    {{ form_start(imageUploader) }}
+        {{ form_errors(imageUploader) }}
+
+        <div>
+            {{ form_label(imageUploader.fileName) }}
+            {{ form_errors(imageUploader.fileName) }}
+            {{ form_widget(imageUploader.fileName) }}
+        </div>
+
+        <div>
+            {{ form_row(imageUploader.upload) }}
+        </div>
+
+    {{ form_end(imageUploader) }}
+
+{% endblock %}
+
