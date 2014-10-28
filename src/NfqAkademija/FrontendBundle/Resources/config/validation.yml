@@ -13,3 +13,6 @@ NfqAkademija\FrontendBundle\Entity\Image:
                 minHeightMessage: Image height is too small
                 maxHeight: 2000
                 maxHeightMessage: Image height is too big
+            - File:
+                maxSize: 6000000
+                maxSizeMessage: Image is to large

@@ -12,6 +12,7 @@ class ImageUploaderController extends Controller
     {
 
         $photo = new Image();
+        $photo->setCreatedDate(new \DateTime('now'));
 
         $form = $this->createFormBuilder($photo)
             ->add('fileName', 'file')
@@ -22,6 +23,20 @@ class ImageUploaderController extends Controller
         $form->handleRequest($request);
 
         if ($form->isValid()) {
+
+           // $em = $this->getDoctrine()->getManager();
+
+            $photo->setFilePath('empty');
+
+
+//           $original_filename = $request->files;
+//            print "<pre>";
+//            print_r($original_filename);
+//            die;
+            $photo->upload();
+
+          //  $em->persist($photo);
+          //  $em->flush();
 
           //  $this->get('kernet')->
             print "Image Uploaded Successfully";
