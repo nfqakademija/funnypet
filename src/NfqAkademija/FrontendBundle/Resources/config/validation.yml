@@ -1,18 +1,26 @@
 #src/NfqAkademija/NfqAkademijaFrontendBundle/Resources/config/validation.yml
-NfqAkademija\FrontendBundle\Entity\Image:
+NfqAkademija\FrontendBundle\Entity\Photo:
     properties:
         fileName:
+            - NotBlank: ~
             - Image:
                 mimeTypes: [image/jpeg, image/png]
-                mimeTypesMessage: Please upload a valid image
+                mimeTypesMessage: "Please upload a valid image"
                 minWidth: 300
-                minWidthMessage: Image width is too small
+                minWidthMessage: "Image width is too small"
                 maxWidth: 2000
-                maxWidthMessage: Image width is too big
+                maxWidthMessage: "Image width is too big"
                 minHeight: 300
-                minHeightMessage: Image height is too small
+                minHeightMessage: "Image height is too small"
                 maxHeight: 2000
-                maxHeightMessage: Image height is too big
+                maxHeightMessage: "Image height is too big"
             - File:
                 maxSize: 6000000
-                maxSizeMessage: Image is to large
+                maxSizeMessage: "Image is to large"
+        name:
+            - NotBlank: ~
+            - Length:
+                  min: 10
+                  minMessage: "Photo title must be at least {{ limit }} characters long"
+                  max: 100
+                  maxMessage: "Photo title must cannot be longer than {{ limit }} characters long"

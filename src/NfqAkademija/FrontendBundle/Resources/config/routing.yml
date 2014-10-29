@@ -1,3 +1,7 @@
-nfq_akademija_frontend_homepage:
+nfq_akademija_frontend_upload:
     path:     /upload
     defaults: { _controller: NfqAkademijaFrontendBundle:ImageUploader:index }
+
+nfq_akademija_frontend_upload_success:
+    path:     /upload_success
+    defaults: { _controller: NfqAkademijaFrontendBundle:ImageUploader:success }

@@ -2,8 +2,14 @@
 
 {% block body %}
 
-    {{ form_start(imageUploader) }}
+    {{ form_start(imageUploader, {'attr': {'novalidate': 'novalidate'}}) }}
         {{ form_errors(imageUploader) }}
+
+        <div>
+            {{ form_label(imageUploader.name) }}
+            {{ form_errors(imageUploader.name) }}
+            {{ form_widget(imageUploader.name) }}
+        </div>
 
         <div>
             {{ form_label(imageUploader.fileName) }}

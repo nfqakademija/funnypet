@@ -3,3 +3,4 @@
 /web/uploads/photo*
 /vendor/*
 .idea/*
+.vagrant/*
