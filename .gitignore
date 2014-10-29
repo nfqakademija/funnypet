@@ -1,6 +1,6 @@
 /app/cache/*
 /app/logs/*
-/web/uploads/photo*
+/web/uploads/*
 /vendor/*
 .idea/*
 .vagrant/*
