@@ -3,31 +3,63 @@
 namespace NfqAkademija\FrontendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
-use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Photo
+ *
+ * @ORM\Table(name="photo")
+ * @ORM\Entity
  */
 class Photo
 {
     /**
      * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
      */
     private $id;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=255, nullable=false)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="file_name", type="string", length=32, nullable=false)
      */
     private $fileName;
 
     /**
      * @var string
+     *
+     * @ORM\Column(name="extension", type="string", length=10, nullable=false)
      */
-    private $name;
+    private $extension;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="rating", type="integer", nullable=false)
+     */
+    private $rating;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="confirmation", type="boolean", nullable=false)
+     */
+    private $confirmation = '0';
 
     /**
      * @var \DateTime
+     *
+     * @ORM\Column(name="created_date", type="datetime", nullable=false)
      */
     private $createdDate;
 
@@ -35,11 +67,34 @@ class Photo
     /**
      * Get id
      *
-     * @return integer
+     * @return integer 
      */
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set title
+     *
+     * @param string $title
+     * @return Photo
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
+
+        return $this;
+    }
+
+    /**
+     * Get title
+     *
+     * @return string 
+     */
+    public function getTitle()
+    {
+        return $this->title;
     }
 
     /**
@@ -48,7 +103,7 @@ class Photo
      * @param string $fileName
      * @return Photo
      */
-    public function setFileName(UploadedFile $fileName = null)
+    public function setFileName($fileName)
     {
         $this->fileName = $fileName;
 
@@ -66,26 +121,72 @@ class Photo
     }
 
     /**
-     * Set name
+     * Set extension
      *
-     * @param string $name
+     * @param string $extension
      * @return Photo
      */
-    public function setName($name)
+    public function setExtension($extension)
     {
-        $this->name = $name;
+        $this->extension = $extension;
 
         return $this;
     }
 
     /**
-     * Get name
+     * Get extension
      *
-     * @return string
+     * @return string 
      */
-    public function getName()
+    public function getExtension()
     {
-        return $this->name;
+        return $this->extension;
+    }
+
+    /**
+     * Set rating
+     *
+     * @param integer $rating
+     * @return Photo
+     */
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
+
+        return $this;
+    }
+
+    /**
+     * Get rating
+     *
+     * @return integer 
+     */
+    public function getRating()
+    {
+        return $this->rating;
+    }
+
+    /**
+     * Set confirmation
+     *
+     * @param boolean $confirmation
+     * @return Photo
+     */
+    public function setConfirmation($confirmation)
+    {
+        $this->confirmation = $confirmation;
+
+        return $this;
+    }
+
+    /**
+     * Get confirmation
+     *
+     * @return boolean 
+     */
+    public function getConfirmation()
+    {
+        return $this->confirmation;
     }
 
     /**
@@ -104,7 +205,7 @@ class Photo
     /**
      * Get createdDate
      *
-     * @return \DateTime
+     * @return \DateTime 
      */
     public function getCreatedDate()
     {

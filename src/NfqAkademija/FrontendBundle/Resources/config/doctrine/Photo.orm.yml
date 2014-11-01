@@ -1,16 +1,49 @@
 NfqAkademija\FrontendBundle\Entity\Photo:
     type: entity
-    table: null
+    table: photo
     id:
         id:
             type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
             id: true
             generator:
-                strategy: AUTO
+                strategy: IDENTITY
     fields:
+        title:
+            type: string
+            nullable: false
+            length: 255
+            fixed: false
+            comment: ''
+            column: title
         fileName:
             type: string
-            length: 255
+            nullable: false
+            length: 32
+            fixed: false
+            comment: ''
+            column: file_name
+        extension:
+            type: string
+            nullable: false
+            length: 10
+            fixed: false
+            comment: ''
+        rating:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+        confirmation:
+            type: boolean
+            nullable: false
+            comment: ''
+            default: '0'
         createdDate:
             type: datetime
+            nullable: false
+            comment: ''
+            column: created_date
     lifecycleCallbacks: {  }
