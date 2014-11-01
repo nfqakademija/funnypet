@@ -1,0 +1,7 @@
+parameters:
+    photo_uploader.class: NfqAkademija\FrontendBundle\Service\PhotoUploader
+
+services:
+    photo_uploader:
+        class:        "%photo_uploader.class%"
+        arguments: [%kernel.root_dir%, @form.factory]

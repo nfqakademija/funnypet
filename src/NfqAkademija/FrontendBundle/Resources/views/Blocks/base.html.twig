@@ -1,0 +1,27 @@
+{% include "NfqAkademijaFrontendBundle:Blocks:header.html.twig" %}
+{% include "NfqAkademijaFrontendBundle:Blocks:menu.html.twig" %}
+
+<div class="container">
+
+    <div class="starter-template">
+
+        <div class="row">
+            {% block headerDescription %}{% endblock %}
+        </div><!-- /.row -->
+
+        <div class="row">
+            {% block body %}{% endblock %}
+        </div><!-- /.row -->
+
+    </div><!-- /.container -->
+</div>
+
+<!-- Bootstrap core JavaScript
+       ================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+{% block javascript %}{% endblock %}
+
+{% include "NfqAkademijaFrontendBundle:Blocks:footer.html.twig" %}

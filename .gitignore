@@ -1,2 +1,11 @@
-.idea
-vendor
+/app/cache/*
+/app/logs/*
+/web/uploads/
+/vendor/
+.idea/
+.vagrant/
+/app/config/parameters.yml
+/bin/
+/build/
+/web/bundles/
+/app/bootstrap.php.cache
