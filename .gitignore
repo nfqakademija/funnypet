@@ -9,3 +9,4 @@
 /build/
 /web/bundles/
 /app/bootstrap.php.cache
+/path/*
