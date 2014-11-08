@@ -1,7 +1,12 @@
 parameters:
     photo_uploader.class: NfqAkademija\FrontendBundle\Service\PhotoUploader
+    oauth_user_provider.class: NfqAkademija\FrontendBundle\Service\FOSUserProvider
 
 services:
     photo_uploader:
         class:        "%photo_uploader.class%"
         arguments: [%kernel.root_dir%, @form.factory]
+
+    oauth_user_provider:
+        class: "%oauth_user_provider.class%"
+        arguments: [@fos_user.user_manager,{facebook: facebookId}]
