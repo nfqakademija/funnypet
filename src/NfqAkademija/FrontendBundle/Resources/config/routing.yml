@@ -9,3 +9,14 @@ nfq_akademija_frontend_upload_success:
 index:
     path:     /
     defaults: { _controller: NfqAkademijaFrontendBundle:DisplayHandler:index }
+
+test:
+    resource: "@NfqAkademijaFrontendBundle/Controller/PhotoController.php"
+    prefix:   /
+    type:     annotation
+
+test1:
+    resource: "@NfqAkademijaFrontendBundle/Controller/TagsController.php"
+    prefix:   /
+    type:     annotation
+
