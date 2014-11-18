@@ -1,6 +1,6 @@
 <?php
 
-namespace NfqAkademija\FrontendBundle\Entity;
+namespace NfqAkademija\UserBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use FOS\UserBundle\Model\User as BaseUser;

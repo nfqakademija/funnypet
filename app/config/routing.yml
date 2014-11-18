@@ -1,23 +1,11 @@
+nfq_akademija_user:
+    resource: "@NfqAkademijaUserBundle/Resources/config/routing.yml"
+    prefix:   /
+
 nfq_akademija_frontend:
     resource: "@NfqAkademijaFrontendBundle/Resources/config/routing.yml"
     prefix:   /
 
-#FOSUserBundle routes
-fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
-
-#HWIOAuthBundle routes
-hwi_oauth_security:
-    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
-    prefix: /login
-
-hwi_oauth_connect:
-    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
-    prefix: /login
-
-hwi_oauth_redirect:
-    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
-    prefix:   /login
-
-facebook_login:
-    pattern: /login/check-facebook
+oneup_uploader:
+    resource: .
+    type: uploader

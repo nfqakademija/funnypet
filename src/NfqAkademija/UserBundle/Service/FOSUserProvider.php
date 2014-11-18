@@ -1,12 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: darius
- * Date: 14.11.8
- * Time: 11.15
- */
 
-namespace NfqAkademija\FrontendBundle\Service;
+namespace NfqAkademija\UserBundle\Service;
 
 use HWI\Bundle\OAuthBundle\OAuth\Response\UserResponseInterface;
 use HWI\Bundle\OAuthBundle\Security\Core\User\FOSUBUserProvider as BaseClass;
@@ -63,8 +57,8 @@ class FOSUserProvider extends BaseClass
             //I have set all requested data with the user's username
             //modify here with relevant data
             $user->setUsername($response->getEmail());
-            $user->setEmail($username);
-            $user->setPassword($username);
+            $user->setEmail($response->getEmail());
+            $user->setPassword(md5(time().rand(1000, 9999)));
             $user->setEnabled(true);
             $this->userManager->updateUser($user);
             return $user;

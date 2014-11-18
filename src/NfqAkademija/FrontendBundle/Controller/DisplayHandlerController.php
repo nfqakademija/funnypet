@@ -8,8 +8,6 @@ class DisplayHandlerController extends Controller
 {
     public function indexAction()
     {
-        return $this->render('NfqAkademijaFrontendBundle:DisplayHandler:index.html.twig', array(
-                // ...
-        ));
+        return $this->render('NfqAkademijaFrontendBundle:DisplayHandler:index.html.twig', array());
     }
 }

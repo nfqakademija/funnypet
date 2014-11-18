@@ -37,14 +37,6 @@ class UploaderHandlerController extends Controller
         ));
     }
 
-    /**
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function successAction()
-    {
-        return $this->render('NfqAkademijaFrontendBundle:ImageUploader:success.html.twig');
-    }
-
     public function ajaxUploadAction()
     {
 

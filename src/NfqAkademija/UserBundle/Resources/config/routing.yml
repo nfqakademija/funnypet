@@ -1,0 +1,25 @@
+nfq_akademija_user_admin:
+    path:     /admin
+    defaults: { _controller: NfqAkademijaUserBundle:Admin:index }
+
+#FOSUserBundle routes
+fos_user_profile:
+    resource: "@FOSUserBundle/Resources/config/routing/profile.xml"
+    prefix: /profile
+
+fos_user_security_logout:
+    path:     /logout
+    defaults: { _controller: NFOSUserBundle:Security:logout }
+
+#HWIOAuthBundle routes
+hwi_oauth_security:
+    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
+    prefix: /login
+
+hwi_oauth_connect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
+    prefix: /login
+
+hwi_oauth_redirect:
+    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
+    prefix:   /login

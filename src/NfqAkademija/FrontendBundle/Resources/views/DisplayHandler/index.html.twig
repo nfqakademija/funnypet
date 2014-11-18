@@ -1,5 +1,22 @@
-{% extends "NfqAkademijaFrontendBundle:Blocks:base.html.twig" %}
+{% extends 'base.html.twig' %}
 
 {% block body %}
+
+    <h1>Home page</h1>
+
+    {% block hwi_oauth_content %}
+        {% if error is defined and error %}
+            <span>{{ error }}</span>
+        {% endif %}
+        {% for owner in hwi_oauth_resource_owners() %}
+            <a href="{{ hwi_oauth_login_url(owner) }}">{{ owner | trans({}, 'HWIOAuthBundle') }}</a> <br />
+        {% endfor %}
+    {% endblock hwi_oauth_content %}
+
+    <a href="{{ path('fos_user_security_logout') }}">logout</a>
+    <br />
+    <a href="{{ path('nfq_akademija_user_admin') }}">admin</a>
+    <br />
+    <a href="{{ path('nfq_akademija_frontend_upload') }}">upload</a>
 
 {% endblock %}

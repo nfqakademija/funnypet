@@ -1,42 +1,71 @@
-{% extends "NfqAkademijaFrontendBundle:Blocks:base.html.twig" %}
+{% extends 'base.html.twig' %}
+
+{#{% extends "NfqAkademijaFrontendBundle:Blocks:base.html.twig" %}#}
+
+{#{% block body %}#}
+
+    {#{{ form_start(imageUploader, {'attr': {'novalidate': 'novalidate', "class": "form-horizontal"}}) }}#}
+        {#{{ form_errors(imageUploader) }}#}
+
+        {#<div class="form-group">#}
+            {#{{ form_label(imageUploader.title, "Photo title", {"label_attr": {"class": "col-sm-2 control-label"}}) }}#}
+            {#&#123;&#35;{{ form_errors(imageUploader.title) }}&#35;&#125;#}
+            {#<div class="col-sm-10">#}
+            {#{{ form_widget(imageUploader.title, {"attr": {"class": "form-control"}}) }}#}
+            {#</div>#}
+        {#</div>#}
+
+        {#<div class="form-group">#}
+            {#{{ form_label(imageUploader.fileName, "Photo", {"label_attr": {"class": "col-sm-2 control-label"}}) }}#}
+            {#&#123;&#35;{{ form_errors(imageUploader.fileName) }}&#35;&#125;#}
+            {#<div class="col-sm-10">#}
+            {#{{ form_widget(imageUploader.fileName) }}#}
+            {#</div>#}
+        {#</div>#}
+
+        {#<div class="form-group">#}
+            {#<div class="col-sm-offset-2 col-sm-10">#}
+            {#{{ form_row(imageUploader.upload, {'attr': {'class': 'btn btn-primary btn-lg pull-left'}} ) }}#}
+            {#</div>#}
+        {#</div>#}
+
+    {#{{ form_end(imageUploader) }}#}
+
+{#{% endblock %}#}
+
+{#{% block headerDescription %}#}
+
+    {#<h1>Upload your pet photo</h1>#}
+
+{#{% endblock %}#}
+
 
 {% block body %}
 
-    {{ form_start(imageUploader, {'attr': {'novalidate': 'novalidate', "class": "form-horizontal"}}) }}
-        {{ form_errors(imageUploader) }}
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+<script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
+<script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
+<script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $('#fileupload').fileupload({
+            dataType: 'json',
+            autoUpload: false,
+            Default:true,
+            success: function (msg) {
 
-        <div class="form-group">
-            {{ form_label(imageUploader.title, "Photo title", {"label_attr": {"class": "col-sm-2 control-label"}}) }}
-            {#{{ form_errors(imageUploader.title) }}#}
-            <div class="col-sm-10">
-            {{ form_widget(imageUploader.title, {"attr": {"class": "form-control"}}) }}
-            </div>
-        </div>
+            },
+            add: function (e, data) {
+                data.context = $('<button/>').text('Click to Upload')
+                        .appendTo(document.body)
+                        .click(function () {
+                            data.context = $('<p/>').text('Uploading...').replaceAll($(this));
+                            data.submit();
+                        });
+            }
+        });
+    });
+</script>
 
-        <div class="form-group">
-            {{ form_label(imageUploader.fileName, "Photo", {"label_attr": {"class": "col-sm-2 control-label"}}) }}
-            {#{{ form_errors(imageUploader.fileName) }}#}
-            <div class="col-sm-10">
-            {{ form_widget(imageUploader.fileName) }}
-            </div>
-        </div>
-
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-            {{ form_row(imageUploader.upload, {'attr': {'class': 'btn btn-primary btn-lg pull-left'}} ) }}
-            </div>
-        </div>
-
-    {{ form_end(imageUploader) }}
-
-{% endblock %}
-
-{% block headerDescription %}
-
-    <h1>Upload your pet photo</h1>
-
-{% endblock %}
-
-{% block javascript %}
-    <script src="{{ asset('bundles/nfqakademijafrontend/js/upload-photo.js') }}"></script>
+<input id="fileupload" type="file" name="files[]" data-url="{{ oneup_uploader_endpoint('gallery') }}" multiple />
 {% endblock %}

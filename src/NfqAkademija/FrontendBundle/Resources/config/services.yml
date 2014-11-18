@@ -1,12 +1,14 @@
 parameters:
     photo_uploader.class: NfqAkademija\FrontendBundle\Service\PhotoUploader
-    oauth_user_provider.class: NfqAkademija\FrontendBundle\Service\FOSUserProvider
+#    upload_listener.class: NfqAkademija\FrontendBundle\EventListener\UploadListener
 
 services:
     photo_uploader:
         class:        "%photo_uploader.class%"
         arguments: [%kernel.root_dir%, @form.factory]
 
-    oauth_user_provider:
-        class: "%oauth_user_provider.class%"
-        arguments: [@fos_user.user_manager,{facebook: facebookId}]
+    nfqakademija_frontend.upload_listener:
+        class:      NfqAkademija\FrontendBundle\EventListener\UploadListener
+        arguments:  [@doctrine]
+        tags:
+          - { name: kernel.event_listener, event: oneup_uploader.post_persist, method: onUpload }
