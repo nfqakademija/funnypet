@@ -3,20 +3,14 @@
 namespace NfqAkademija\FrontendBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
-/**
- * Handle upload actions
-
- * Class UploaderHandlerController
- * @package NfqAkademija\FrontendBundle\Controller
- * @author darius.dzervus
- */
 class UploaderHandlerController extends Controller
 {
     /**
      * @param Request $request
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     * @return JsonResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(Request $request)
     {
@@ -25,20 +19,12 @@ class UploaderHandlerController extends Controller
 
         $form->handleRequest($request);
 
-        if ($form->isValid()) {
-
-            $uploader->upload();
-            return $this->redirect($this->generateUrl('nfq_akademija_frontend_upload_success'));
-
+        if ($request->isXmlHttpRequest()) {
+            return new JsonResponse($uploader->validateForm($form));
         }
 
         return $this->render('NfqAkademijaFrontendBundle:ImageUploader:index.html.twig', array(
             'imageUploader' => $form->createView(),
         ));
-    }
-
-    public function ajaxUploadAction()
-    {
-
     }
 }

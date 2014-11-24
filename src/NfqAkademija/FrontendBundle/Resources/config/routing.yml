@@ -6,6 +6,10 @@ nfq_akademija_frontend_upload:
     path:     /upload
     defaults: { _controller: NfqAkademijaFrontendBundle:UploaderHandler:index }
 
+nfq_akademija_frontend_upload_ajax:
+    path:     /ajax_upload
+    defaults: { _controller: NfqAkademijaFrontendBundle:UploaderHandler:upload }
+
 test:
     resource: "@NfqAkademijaFrontendBundle/Controller/PhotoController.php"
     prefix:   /

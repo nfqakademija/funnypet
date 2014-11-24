@@ -37,6 +37,20 @@ class Photo
     private $fileName;
 
     /**
+     * @var datetime
+     *
+     * @ORM\Column(name="created_date", type="datetime")
+     */
+    private $createdDate;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="rating", type="integer", options={"default" = 0})
+     */
+    private $rating;
+
+    /**
      * @var \Doctrine\Common\Collections\ArrayCollection $tags;
      *
      * @ORM\ManyToMany(targetEntity="NfqAkademija\FrontendBundle\Entity\Tags", inversedBy="photos")
@@ -45,7 +59,7 @@ class Photo
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
      *      )
      */
-    protected $tags;
+    public $tags;
 
 
     public function __construct()
@@ -123,7 +137,7 @@ class Photo
      * @param \NfqAkademija\FrontendBundle\Entity\Tags $tag
      * @return Photo
      */
-    public function addTag(\NfqAkademija\FrontendBundle\Entity\Tags $tag)
+    public function addTag(Tags $tag)
     {
         $this->tags[] = $tag;
 
@@ -135,7 +149,7 @@ class Photo
      *
      * @param \NfqAkademija\FrontendBundle\Entity\Tags $tag
      */
-    public function removeTag(\NfqAkademija\FrontendBundle\Entity\Tags $tag)
+    public function removeTag(Tags $tag)
     {
         $this->tags->removeElement($tag);
     }
@@ -148,5 +162,51 @@ class Photo
     public function getTags()
     {
         return $this->tags;
+    }
+
+    /**
+     * Set createdDate
+     *
+     * @param \DateTime $createdDate
+     * @return Photo
+     */
+    public function setCreatedDate($createdDate)
+    {
+        $this->createdDate = $createdDate;
+
+        return $this;
+    }
+
+    /**
+     * Get createdDate
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedDate()
+    {
+        return $this->createdDate;
+    }
+
+    /**
+     * Set rating
+     *
+     * @param integer $rating
+     * @return Photo
+     */
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
+
+        return $this;
+    }
+
+    /**
+     * Get rating
+     *
+     * @return integer 
+     */
+    public function getRating()
+    {
+        return $this->rating;
     }
 }

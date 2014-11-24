@@ -19,8 +19,7 @@ class AppKernel extends Kernel
             new NfqAkademija\FrontendBundle\NfqAkademijaFrontendBundle(),
             new NfqAkademija\UserBundle\NfqAkademijaUserBundle(),
             new FOS\UserBundle\FOSUserBundle(),
-            new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
-            new Oneup\UploaderBundle\OneupUploaderBundle()
+            new HWI\Bundle\OAuthBundle\HWIOAuthBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

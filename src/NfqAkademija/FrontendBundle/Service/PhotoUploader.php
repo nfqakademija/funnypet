@@ -1,15 +1,14 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: darius
- * Date: 14.10.29
- * Time: 18.31
- */
+
 namespace NfqAkademija\FrontendBundle\Service;
 
 use NfqAkademija\FrontendBundle\Entity\Photo;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\Form\FormFactory;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
+use NfqAkademija\FrontendBundle\Service;
+use Doctrine\ORM\EntityManager;
+use Symfony\Component\Form\Form;
 
 class PhotoUploader
 {
@@ -21,27 +20,40 @@ class PhotoUploader
     /**
      * @var string
      */
-    private $uploadDirectory;
+    private $absolutePath;
 
     /**
      * @var string
      */
-    private $absolutePath;
+    private $fileExtension;
 
     /**
      * @var FormFactory
      */
     private $formFactory;
 
-    public function __construct($rootDir, $formFactory)
+    /**
+     * @var string
+     */
+    private $fileName;
+
+    /**
+     * @var EntityManager
+     */
+    private $entityManager;
+
+    public function __construct($rootDir, $formFactory, $doctrine)
     {
         $this->photo = new Photo();
-        $this->uploadDirectory = "uploads";
         $this->formFactory = $formFactory;
-        $this->absolutePath =  realpath($rootDir . '/../web') .'/';
+        $this->absolutePath =  realpath($rootDir . '/../web') .'/uploads';
+        $this->generateFileName();
+        $this->entityManager = $doctrine;
     }
 
     /**
+     * Get photo object
+     *
      * @return Photo
      */
     public function getPhoto()
@@ -50,12 +62,15 @@ class PhotoUploader
     }
 
     /**
+     * Create upload form
+     *
      * @return \Symfony\Component\Form\Form
      */
     public function createForm()
     {
-        $form = $this->formFactory->createBuilder("form", $this->photo)
+        $form = $this->formFactory->createBuilder('form', $this->photo)
             ->add('title', 'text')
+            ->add('tags', 'text')
             ->add('fileName', 'file')
             ->add('upload', 'submit')
             ->getForm();
@@ -63,36 +78,94 @@ class PhotoUploader
         return $form;
     }
 
+    /**
+     * Generate random file name
+     *
+     * @return string
+     */
+    private function generateFileName()
+    {
+        $this->fileName = md5(time().rand(1000, 9999));
+    }
 
+    /**
+     * Handle upload action
+     */
     public function upload()
     {
-        $this->photo->setCreatedDate(new \DateTime('now'));
-
         $file = $this->photo->getFileName();
         if ($file instanceof UploadedFile) {
-            $file->move(
-                $this->absolutePath.$this->uploadDirectory,
-                $this->generateFileName($this->photo->getName(), $file)
-            );
+            //Save original file extension
+            $this->fileExtension = $file->getClientOriginalExtension();
+
+            $this->saveTempImage($file);
+            $this->imageSave();
+            $this->savePhotoEntity();
+            $this->removeTempImage();
         }
     }
 
-    private function generateFileName($name, UploadedFile $file)
+    /**
+     * Save temporary image
+     *
+     * @param UploadedFile $file
+     */
+    private function saveTempImage(UploadedFile $file)
     {
-        return $this->createSlug($name) .'-'. rand(10000, 99999) . '.'. $file->getClientOriginalExtension();
+        $file->move($this->absolutePath.'/temp', $this->fileName.'.'.$this->fileExtension);
     }
 
-    private function createSlug($name)
+    /**
+     * Remove temporary image
+     */
+    private function removeTempImage()
     {
-        $slug = trim(strtolower($name));
-        $slug = str_replace("'", "", $slug);
+        unlink($this->absolutePath.'/temp/'.$this->fileName.'.'.$this->fileExtension);
+    }
 
-        // Every character other than a-z, 0-9 will be replaced with a single dash (-)
-        $slug = preg_replace("/[^a-z0-9]+/", "-", $slug);
+    /**
+     * Convert image to png
+     * Create thumbnail image
+     * Save main image
+     */
+    private function imageSave()
+    {
+        $image = new ImageWorker($this->absolutePath."/temp/".$this->fileName.".".$this->fileExtension);
+        $image->convertToPng();
+        $image->saveImagePng($this->fileName, $this->absolutePath);
+        $image->createTempImage($this->fileName, $this->absolutePath);
+    }
 
-        // Remove any beginning or trailing dashes
-        $slug = trim($slug, "-");
+    /**
+     * Save photo information to database
+     */
+    public function savePhotoEntity()
+    {
+        $this->photo->setCreatedDate(new \DateTime("now"));
+        $this->photo->setFileName($this->fileName);
 
-        return $slug;
+        $this->entityManager->persist($this->photo);
+        $this->entityManager->flush();
+    }
+
+    /**
+     * Validate form. Return response array about form submit
+     * @param Form $form
+     * @return array
+     */
+    public function validateForm(Form $form)
+    {
+        if ($form->isValid()) {
+            $this->upload();
+            return array(
+                "response" => "success",
+                "photo_id" => $this->photo->getId(),
+                "photo_fileName" => $this->photo->getFileName()
+            );
+        } else {
+            $errorSerializer = new FormErrorsSerializer();
+            return $errorSerializer->serializeFormErrors($form, true, true);
+        }
+
     }
 }

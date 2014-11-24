@@ -4,6 +4,7 @@ namespace NfqAkademija\FrontendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections;
+
 /**
  * Tags
  *
@@ -33,7 +34,7 @@ class Tags
      *
      * @ORM\ManyToMany(targetEntity="NfqAkademija\FrontendBundle\Entity\Photo", mappedBy="tags")
      */
-    protected $photos;
+    public $photos;
 
 
     public function __construct()
@@ -88,7 +89,7 @@ class Tags
      * @param \NfqAkademija\FrontendBundle\Entity\Photo $photo
      * @return Tags
      */
-    public function addPhoto(\NfqAkademija\FrontendBundle\Entity\Photo $photo)
+    public function addPhoto(Photo $photo)
     {
         $this->photos[] = $photo;
 
@@ -100,7 +101,7 @@ class Tags
      *
      * @param \NfqAkademija\FrontendBundle\Entity\Photo $photo
      */
-    public function removePhoto(\NfqAkademija\FrontendBundle\Entity\Photo $photo)
+    public function removePhoto(Photo $photo)
     {
         $this->photos->removeElement($photo);
     }
