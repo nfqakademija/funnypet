@@ -1,0 +1,8 @@
+{% for photo in photos %}
+    <div class="item">
+        <b>{{ photo.title }}</b><br>
+        <img src="/uploads/thumb/{{ photo.fileName }}.png" alt="{{ photo.title }}" /><br>
+        <div class="like">Like</div>
+        <div class="dislike">Dislike</div>
+    </div>
+{% endfor %}

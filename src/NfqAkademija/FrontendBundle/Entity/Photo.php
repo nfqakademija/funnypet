@@ -53,18 +53,19 @@ class Photo
     /**
      * @var \Doctrine\Common\Collections\ArrayCollection $tags;
      *
-     * @ORM\ManyToMany(targetEntity="NfqAkademija\FrontendBundle\Entity\Tags", inversedBy="photos")
+     * @ORM\ManyToMany(targetEntity="NfqAkademija\FrontendBundle\Entity\Tag", inversedBy="photos", cascade={"persist"})
      * @ORM\JoinTable(name="photos_tags",
      *      joinColumns={@ORM\JoinColumn(name="photo_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
      *      )
      */
-    public $tags;
+    public $tags = array();
 
 
     public function __construct()
     {
         $this->tags = new Collections\ArrayCollection();
+        $this->rating = 0;
     }
 
     /**
@@ -134,12 +135,14 @@ class Photo
     /**
      * Add tag
      *
-     * @param \NfqAkademija\FrontendBundle\Entity\Tags $tag
+     * @param \NfqAkademija\FrontendBundle\Entity\Tag $tag
      * @return Photo
      */
-    public function addTag(Tags $tag)
+    public function addTag(Tag $tag)
     {
-        $this->tags[] = $tag;
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+        }
 
         return $this;
     }
@@ -147,9 +150,9 @@ class Photo
     /**
      * Remove tag
      *
-     * @param \NfqAkademija\FrontendBundle\Entity\Tags $tag
+     * @param \NfqAkademija\FrontendBundle\Entity\Tag $tag
      */
-    public function removeTag(Tags $tag)
+    public function removeTag(Tag $tag)
     {
         $this->tags->removeElement($tag);
     }

@@ -19,4 +19,62 @@
     <br />
     <a href="{{ path('nfq_akademija_frontend_upload') }}">upload</a>
 
+        <h1>Photo list</h1>
+
+    <div id="wrapper">
+        <div id="postswrapper">
+            {% for photo in photos %}
+            <div class="item">
+                <b>{{ photo.title }}</b><br>
+                <img src="/uploads/thumb/{{ photo.fileName }}.png" alt="{{ photo.title }}" /><br>
+
+                {% for tag in photo.tags %}
+                    <li>{{ tag.name }}, </li>
+                {% endfor %}
+
+                <div class="like">Like</div>
+                <div class="dislike">Dislike</div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+
+
+    <div id="loadmoreajaxloader" style="display:none;">Loading....</div>
+
+
+{% endblock %}
+
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript">
+        var scrollPage = 10;
+        var scrollStop = false;
+        var scrollContinue = true;
+        $(window).scroll(function(){
+            if($(window).scrollTop() == $(document).height() - $(window).height()){
+                if (!scrollStop && scrollContinue) {
+                    scrollContinue = false;
+                    $('div#loadmoreajaxloader').show();
+                    $.ajax({
+                        url: "/ajax_scroll/" + scrollPage,
+                        success: function(html){
+                            if(html){
+                                scrollPage = scrollPage + 10;
+                                scrollContinue = true;
+                                $("#postswrapper").append(html);
+                                $('div#loadmoreajaxloader').hide();
+                            }else{
+                                scrollContinue = true
+                                scrollStop = true;
+                                $('div#loadmoreajaxloader').html('No more posts to show.');
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    </script>
+
 {% endblock %}

@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class AdminController extends ConnectController
+class LoginController extends ConnectController
 {
     public function indexAction()
     {

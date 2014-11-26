@@ -6,18 +6,22 @@
         {{ form_errors(imageUploader) }}
 
             {{ form_label(imageUploader.title, "Nuotraukos antraštė") }}
-            {{ form_errors(imageUploader.title) }}
             {{ form_widget(imageUploader.title) }}
             <br />
-            {{ form_label(imageUploader.tags, "") }}
-            {{ form_errors(imageUploader.tags) }}
-            {{ form_widget(imageUploader.tags) }}
-            <br />
-            {{ form_label(imageUploader.fileName, "Paveikslėlis") }}
-            {{ form_errors(imageUploader.fileName) }}
-            {{ form_widget(imageUploader.fileName) }}
 
-            {{ form_row(imageUploader.upload) }}
+            {{ form_label(imageUploader.tags, "Paieškos frazės") }}
+            <ul class="tags" data-prototype="{{ form_widget(imageUploader.tags.vars.prototype)|e }}">
+                {% for tag in imageUploader.tags %}
+                    <li>{{ form_row(tag.name) }}</li>
+                {% endfor %}
+            </ul>
+            {% do imageUploader.tags.setRendered() %}
+
+            <br />
+            {{ form_label(imageUploader.fileName, "Nuotrauka") }}
+            {{ form_widget(imageUploader.fileName, {'attr': {'class': 'file_name'}}) }}
+
+            {{ form_row(imageUploader.upload, {'attr': {'class': 'upload'}}) }}
 
     {{ form_end(imageUploader) }}
 
@@ -26,14 +30,15 @@
     <script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
     <script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload.js"></script>
 
-    <script type="text/javascript">
+    <script type="text/javascript" src="{{ asset("bundles/nfqakademijafrontend/js/formTags.js") }}"></script>
 
-        $(document).on("click", "#form_upload", function(event) {
+    <script type="text/javascript">
+        $(document).on("click", ".upload", function(event) {
             event.preventDefault();
         });
 
         $(document).ready(function(){
-            $("#form_fileName").fileupload({
+            $(".file_name").fileupload({
                 dataType: 'json',
                 Default:true,
                 singleFileUploads: true,
@@ -41,10 +46,10 @@
 
                 },
                 add: function (e, data) {
-                    $("#form_upload").prop("disabled",false);
-                    $("#form_upload").off('click').on('click',function (event) {
+                    $(".upload").prop("disabled",false);
+                    $(".upload").off('click').on('click',function (event) {
                         event.preventDefault();
-                        $("#form_upload").prop("disabled",true);
+                        $(".upload").prop("disabled",true);
                         data.submit();
                     });
                 }

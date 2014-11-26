@@ -3,22 +3,33 @@ NfqAkademija\FrontendBundle\Entity\Photo:
     properties:
         fileName:
             - NotBlank:
-                message: "Nepasirinktas paveikslėlis."
+                message: "Nepasirinkta nuotrauka."
             - Image:
                 mimeTypes: [image/jpeg, image/png]
                 mimeTypesMessage: "Neteisingas failo tipas."
                 minWidth: 300
-                minWidthMessage: "Paveikslėlio plotis per mažas."
+                minWidthMessage: "Nuotraukos plotis per mažas."
                 minHeight: 300
-                minHeightMessage: "Paveikslėlio aukštis per mažas."
+                minHeightMessage: "Nuotraukos aukštis per mažas."
             - File:
                 maxSize: 5242880
-                maxSizeMessage: "Paveikslėlis per didelis."
+                maxSizeMessage: "Nuotraukos per didelė."
         title:
             - NotBlank:
                 message: "Nuotraukos aktraštė patikta tuščia."
             - Length:
-                  min: 10
-                  minMessage: "Paveikslėlio aptraštė per trumpa, turi būti mažiausiai {{ limit }} simbolių."
+                  min: 5
+                  minMessage: "Nuotraukos aptraštė per trumpa, turi būti mažiausiai {{ limit }} simbolių."
                   max: 100
-                  minMessage: "Paveikslėlio aptraštė per ilga, turi būti daugiausiai {{ limit }} simbolių."
+                  minMessage: "Nuotraukos aptraštė per ilga, turi būti daugiausiai {{ limit }} simbolių."
+        tags:
+            - Count:
+                  min: 1
+                  max: 5
+                  minMessage: "Iraškite bent vieną paieškos frazę."
+                  maxMessage: "Daugiausiai galite pridėti {{ limit }} paieškos frazių"
+#            - Collection:
+#                  fields:
+#                      name:
+#                          - NotBlank:
+#                              message: "Nuotraukos aktraštė patikta tuščia.ddddddddd"

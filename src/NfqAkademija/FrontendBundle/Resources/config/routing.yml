@@ -2,6 +2,10 @@ nfq_akademija_frontend_index:
     path:     /
     defaults: { _controller: NfqAkademijaFrontendBundle:DisplayHandler:index }
 
+nfq_akademija_frontend_ajax_scroll:
+    path:     /ajax_scroll/{start}
+    defaults: { _controller: NfqAkademijaFrontendBundle:DisplayHandler:ajaxScroll, start: 0 }
+
 nfq_akademija_frontend_upload:
     path:     /upload
     defaults: { _controller: NfqAkademijaFrontendBundle:UploaderHandler:index }
@@ -9,14 +13,3 @@ nfq_akademija_frontend_upload:
 nfq_akademija_frontend_upload_ajax:
     path:     /ajax_upload
     defaults: { _controller: NfqAkademijaFrontendBundle:UploaderHandler:upload }
-
-test:
-    resource: "@NfqAkademijaFrontendBundle/Controller/PhotoController.php"
-    prefix:   /
-    type:     annotation
-
-test1:
-    resource: "@NfqAkademijaFrontendBundle/Controller/TagsController.php"
-    prefix:   /
-    type:     annotation
-

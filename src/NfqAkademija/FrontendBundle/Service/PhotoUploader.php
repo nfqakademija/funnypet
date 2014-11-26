@@ -3,8 +3,9 @@
 namespace NfqAkademija\FrontendBundle\Service;
 
 use NfqAkademija\FrontendBundle\Entity\Photo;
+use NfqAkademija\FrontendBundle\Entity\Tag;
+use NfqAkademija\FrontendBundle\Form\PhotoType;
 use Symfony\Component\Form\FormFactory;
-use Symfony\Component\HttpFoundation\File\File;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use NfqAkademija\FrontendBundle\Service;
 use Doctrine\ORM\EntityManager;
@@ -47,7 +48,7 @@ class PhotoUploader
         $this->photo = new Photo();
         $this->formFactory = $formFactory;
         $this->absolutePath =  realpath($rootDir . '/../web') .'/uploads';
-        $this->generateFileName();
+        $this->fileName = $this->generateFileName();
         $this->entityManager = $doctrine;
     }
 
@@ -68,14 +69,9 @@ class PhotoUploader
      */
     public function createForm()
     {
-        $form = $this->formFactory->createBuilder('form', $this->photo)
-            ->add('title', 'text')
-            ->add('tags', 'text')
-            ->add('fileName', 'file')
-            ->add('upload', 'submit')
-            ->getForm();
-
-        return $form;
+        return $this->formFactory
+                ->createBuilder(new PhotoType(), $this->photo)
+                ->getForm();
     }
 
     /**
@@ -85,7 +81,7 @@ class PhotoUploader
      */
     private function generateFileName()
     {
-        $this->fileName = md5(time().rand(1000, 9999));
+        return md5(time().rand(1000, 9999));
     }
 
     /**
@@ -141,11 +137,39 @@ class PhotoUploader
      */
     public function savePhotoEntity()
     {
+        $this->uniquerTags();
+
         $this->photo->setCreatedDate(new \DateTime("now"));
         $this->photo->setFileName($this->fileName);
-
         $this->entityManager->persist($this->photo);
         $this->entityManager->flush();
+    }
+
+    /**
+     * If tag exists by name then replace tag object
+     * Ensure unique tags in tags table
+     */
+    private function uniquerTags()
+    {
+        foreach ($this->photo->tags as $tag) {
+            $newTag = $this->checkUniqueTag($tag->getName());
+            if ($newTag instanceof Tag) {
+                $this->photo->removeTag($tag);
+                $this->photo->addTag($newTag);
+            }
+        }
+    }
+
+    /**
+     * Check if tag already exist
+     * @param $name
+     * @return Tag
+     */
+    private function checkUniqueTag($name)
+    {
+        return $this->entityManager
+                ->getRepository("NfqAkademijaFrontendBundle:Tag")
+                ->findOneBy(array("name" => $name));
     }
 
     /**
@@ -166,6 +190,5 @@ class PhotoUploader
             $errorSerializer = new FormErrorsSerializer();
             return $errorSerializer->serializeFormErrors($form, true, true);
         }
-
     }
 }

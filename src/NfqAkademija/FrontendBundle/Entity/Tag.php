@@ -6,12 +6,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections;
 
 /**
- * Tags
+ * Tag
  *
- * @ORM\Table(name="tags")
+ * @ORM\Table(name="tag")
  * @ORM\Entity
  */
-class Tags
+class Tag
 {
     /**
      * @var integer
@@ -25,7 +25,7 @@ class Tags
     /**
      * @var string
      *
-     * @ORM\Column(name="name", type="string", length=255)
+     * @ORM\Column(name="name", type="string", length=255, unique=true)
      */
     private $name;
 
@@ -64,7 +64,7 @@ class Tags
      * Set name
      *
      * @param string $name
-     * @return Tags
+     * @return Tag
      */
     public function setName($name)
     {
@@ -87,7 +87,7 @@ class Tags
      * Add photo
      *
      * @param \NfqAkademija\FrontendBundle\Entity\Photo $photo
-     * @return Tags
+     * @return Tag
      */
     public function addPhoto(Photo $photo)
     {

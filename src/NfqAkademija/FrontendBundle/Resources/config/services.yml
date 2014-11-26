@@ -2,6 +2,7 @@ parameters:
     photo_uploader.class: NfqAkademija\FrontendBundle\Service\PhotoUploader
     image_worker.class: NfqAkademija\FrontendBundle\Service\ImageWorker
     form_errors_serializer.class: NfqAkademija\FrontendBundle\Service\FormErrorsSerializer
+    display_photo.class: NfqAkademija\FrontendBundle\Service\DisplayPhoto
 
 services:
     photo_uploader:
@@ -11,3 +12,6 @@ services:
         class: "%image_worker.class%"
     form_errors_serializer:
         class: "%form_errors_serializer.class%"
+    display_photo:
+        class: "%display_photo.class%"
+        arguments: [@doctrine.orm.entity_manager]
