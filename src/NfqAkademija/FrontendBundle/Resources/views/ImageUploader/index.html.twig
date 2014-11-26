@@ -3,7 +3,6 @@
 {% block body %}
 
     {{ form_start(imageUploader, {'attr': {'novalidate': 'novalidate'}}) }}
-        {{ form_errors(imageUploader) }}
 
             {{ form_label(imageUploader.title, "Nuotraukos antraštė") }}
             {{ form_widget(imageUploader.title) }}
@@ -25,7 +24,11 @@
 
     {{ form_end(imageUploader) }}
 
-    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+{% endblock %}
+
+{% block javascripts %}
+{{ parent() }}
+
     <script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
     <script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
     <script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload.js"></script>
@@ -34,6 +37,7 @@
 
     <script type="text/javascript">
         $(document).on("click", ".upload", function(event) {
+            console.log(1);
             event.preventDefault();
         });
 
