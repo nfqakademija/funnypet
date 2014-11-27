@@ -139,8 +139,10 @@ class PhotoUploader
     {
         $this->uniquerTags();
 
-        $this->photo->setCreatedDate(new \DateTime("now"));
-        $this->photo->setFileName($this->fileName);
+        $this->photo
+            ->setCreatedDate(new \DateTime("now"))
+            ->setFileName($this->fileName);
+
         $this->entityManager->persist($this->photo);
         $this->entityManager->flush();
     }
@@ -162,6 +164,7 @@ class PhotoUploader
 
     /**
      * Check if tag already exist
+     *
      * @param $name
      * @return Tag
      */
@@ -174,6 +177,7 @@ class PhotoUploader
 
     /**
      * Validate form. Return response array about form submit
+     *
      * @param Form $form
      * @return array
      */

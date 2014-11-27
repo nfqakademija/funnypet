@@ -4,6 +4,7 @@ namespace NfqAkademija\FrontendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Photo
@@ -61,10 +62,9 @@ class Photo
      */
     public $tags = array();
 
-
     public function __construct()
     {
-        $this->tags = new Collections\ArrayCollection();
+        $this->tags = new ArrayCollection();
         $this->rating = 0;
     }
 

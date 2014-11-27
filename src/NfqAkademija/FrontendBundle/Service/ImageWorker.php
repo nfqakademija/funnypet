@@ -1,9 +1,12 @@
 <?php
-/**
- * Handle image manipulation
- */
 namespace NfqAkademija\FrontendBundle\Service;
 
+/**
+ * Handle image manipulation
+ *
+ * Class ImageWorker
+ * @package NfqAkademija\FrontendBundle\Service
+ */
 class ImageWorker
 {
     /**

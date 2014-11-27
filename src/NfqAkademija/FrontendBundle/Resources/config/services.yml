@@ -3,6 +3,7 @@ parameters:
     image_worker.class: NfqAkademija\FrontendBundle\Service\ImageWorker
     form_errors_serializer.class: NfqAkademija\FrontendBundle\Service\FormErrorsSerializer
     display_photo.class: NfqAkademija\FrontendBundle\Service\DisplayPhoto
+    rating.class: NfqAkademija\FrontendBundle\Service\Rating
 
 services:
     photo_uploader:
@@ -15,3 +16,6 @@ services:
     display_photo:
         class: "%display_photo.class%"
         arguments: [@doctrine.orm.entity_manager]
+    rating:
+        class: "%rating.class%"
+        arguments: [@doctrine.orm.entity_manager, @security.context, @display_photo]

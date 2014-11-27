@@ -4,6 +4,12 @@ namespace NfqAkademija\FrontendBundle\Service;
 
 use Symfony\Component\Form\Form;
 
+/**
+ * Return form errors as array for json response
+ *
+ * Class FormErrorsSerializer
+ * @package NfqAkademija\FrontendBundle\Service
+ */
 class FormErrorsSerializer
 {
     /**
@@ -44,7 +50,7 @@ class FormErrorsSerializer
     {
         $local_errors = array();
         foreach ($form->getIterator() as $key => $child) {
-            foreach ($child->getErrors() as $error){
+            foreach ($child->getErrors() as $error) {
                 $local_errors[$key] = $error->getMessage();
             }
 

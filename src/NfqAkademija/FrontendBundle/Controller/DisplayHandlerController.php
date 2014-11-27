@@ -26,4 +26,16 @@ class DisplayHandlerController extends Controller
             array("photos" => $display_photo->getDashboardPhotos($start))
         );
     }
+
+    public function ajaxRateLikeAction($photo_id)
+    {
+        $rating = $this->container->get('rating');
+        return new JsonResponse($rating->ratePhoto(1, $photo_id));
+    }
+
+    public function ajaxRateDislikeAction($photo_id)
+    {
+        $rating = $this->container->get('rating');
+        return new JsonResponse($rating->ratePhoto(-1, $photo_id));
+    }
 }
