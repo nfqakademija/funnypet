@@ -1,43 +1,35 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {% include ('NfqAkademijaFrontendBundle:Blocks:header.html.twig') %}
 
-    <h1>Home page</h1>
-
-    {% block hwi_oauth_content %}
-        {% if error is defined and error %}
-            <span>{{ error }}</span>
-        {% endif %}
-        {% for owner in hwi_oauth_resource_owners() %}
-            <a href="{{ hwi_oauth_login_url(owner) }}">{{ owner | trans({}, 'HWIOAuthBundle') }}</a> <br />
-        {% endfor %}
-    {% endblock hwi_oauth_content %}
-
-    <a href="{{ path('fos_user_security_logout') }}">logout</a>
-    <br />
-    <a href="{{ path('nfq_akademija_user_admin') }}">admin</a>
-    <br />
-    <a href="{{ path('nfq_akademija_frontend_upload') }}">upload</a>
-
-        <h1>Photo list</h1>
-
-    <div id="wrapper">
-        <div id="postswrapper">
-            {% for photo in photos %}
-            <div class="item">
-                <b>{{ photo.title }}</b><br>
-                <img src="/uploads/thumb/{{ photo.fileName }}.png" alt="{{ photo.title }}" /><br>
-
-                {% for tag in photo.tags %}
-                    <li>{{ tag.name }}, </li>
-                {% endfor %}
-
-                <div class="like"><a href="{{ path('nfq_akademija_frontend_rating_like', {'photo_id': photo.id}) }}">Like</a></div>
-                <div class="dislike"><a href="{{ path('nfq_akademija_frontend_rating_dislike', {'photo_id': photo.id}) }}">Dislike</a></div>
-            </div>
-            {% endfor %}
+    <div class="container" id="postswrapper">
+        <div class="row">
+            {% include ("NfqAkademijaFrontendBundle:DisplayHandler:scroll.html.twig") %}
         </div>
     </div>
+
+    {#<div id="wrapper">#}
+        {#<div id="postswrapper">#}
+            {#{% for photo in photos %}#}
+            {#<div class="item">#}
+                {#<b>{{ photo.title }}</b><br>#}
+                {#<img src="/uploads/thumb/{{ photo.fileName }}.png" alt="{{ photo.title }}" /><br>#}
+
+                {#{% for tag in photo.tags %}#}
+                    {#<li>{{ tag.name }}, </li>#}
+                {#{% endfor %}#}
+
+                {#{% if photo.currentUserRating %}#}
+                    {#<h1>{{ photo.currentUserRating.rating }}</h1>#}
+                {#{% else %}#}
+                {#<div class="like"><a href="{{ path('nfq_akademija_frontend_rating_like', {'photo_id': photo.id}) }}">Like</a></div>#}
+                {#<div class="dislike"><a href="{{ path('nfq_akademija_frontend_rating_dislike', {'photo_id': photo.id}) }}">Dislike</a></div>#}
+                {#{% endif %}#}
+            {#</div>#}
+            {#{% endfor %}#}
+        {#</div>#}
+    {#</div>#}
 
 
     <div id="loadmoreajaxloader" style="display:none;">Loading....</div>
@@ -49,6 +41,7 @@
 {% block javascripts %}
     {{ parent() }}
     <script type="text/javascript">
+
         var scrollPage = 10;
         var scrollStop = false;
         var scrollContinue = true;

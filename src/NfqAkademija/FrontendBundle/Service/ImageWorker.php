@@ -49,7 +49,7 @@ class ImageWorker
     public function createTempImage($name, $path)
     {
         $this->image->setImageFormat('png');
-        $this->image->resizeImage(320, 240, \Imagick::FILTER_LANCZOS, 1);
+        $this->image->thumbnailImage(320, 240, true);
         $this->image->writeImages(rtrim($path, '/').'/thumb/'.$name.".png", true);
         $this->image->destroy();
     }

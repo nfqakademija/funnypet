@@ -153,12 +153,18 @@ class PhotoUploader
      */
     private function uniquerTags()
     {
-        foreach ($this->photo->tags as $tag) {
+        $tagsName = array();
+        foreach ($this->photo->getTags() as $tag) {
+            /* @var \NfqAkademija\FrontendBundle\Entity\Tag $tag */
             $newTag = $this->checkUniqueTag($tag->getName());
             if ($newTag instanceof Tag) {
                 $this->photo->removeTag($tag);
                 $this->photo->addTag($newTag);
+            } elseif (in_array($tag->getName(), $tagsName)) {
+                $this->photo->removeTag($tag);
             }
+
+            $tagsName[] = $tag->getName();
         }
     }
 
@@ -188,7 +194,8 @@ class PhotoUploader
             return array(
                 "response" => "success",
                 "photo_id" => $this->photo->getId(),
-                "photo_fileName" => $this->photo->getFileName()
+                "photo_fileName" => $this->photo->getFileName(),
+                "message" => "<strong>Nuotrauka įkelta!</strong> Nuotrauka ikelta sėkmingai."
             );
         } else {
             $errorSerializer = new FormErrorsSerializer();

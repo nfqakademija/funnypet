@@ -27,12 +27,14 @@ class Rating
 
     /**
      * @param EntityManager $doctrine
+     * @param SecurityContext $securityContext
+     * @param DisplayPhoto $displayPhoto
      */
-    public function __construct(EntityManager $doctrine, SecurityContext $securityContext, $display_photo)
+    public function __construct(EntityManager $doctrine, SecurityContext $securityContext, $displayPhoto)
     {
         $this->entityManager = $doctrine;
         $this->user = $securityContext->getToken()->getUser();
-        $this->displayPhoto = $display_photo;
+        $this->displayPhoto = $displayPhoto;
     }
 
     /**
@@ -65,12 +67,12 @@ class Rating
     /**
      * Get photo by photo id
      *
-     * @param integer $photo_id
+     * @param integer $photoId
      * @return Photo
      */
-    private function getPhoto($photo_id)
+    private function getPhoto($photoId)
     {
-        return $this->displayPhoto->getPhoto($photo_id);
+        return $this->displayPhoto->getPhoto($photoId);
     }
 
     /**

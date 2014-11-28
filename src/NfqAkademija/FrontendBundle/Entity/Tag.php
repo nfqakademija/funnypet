@@ -34,7 +34,7 @@ class Tag
      *
      * @ORM\ManyToMany(targetEntity="NfqAkademija\FrontendBundle\Entity\Photo", mappedBy="tags")
      */
-    public $photos;
+    private $photos;
 
 
     public function __construct()

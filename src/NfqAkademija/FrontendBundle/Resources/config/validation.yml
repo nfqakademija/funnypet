@@ -1,4 +1,15 @@
 #src/NfqAkademija/NfqAkademijaFrontendBundle/Resources/config/validation.yml
+NfqAkademija\FrontendBundle\Entity\Tag:
+    properties:
+        name:
+            - NotBlank:
+                message: "Paieškos frazė palikta tuščia."
+            - Length:
+                min: 3
+                minMessage: "Paieškos frazė per trumpa, turi būti mažiausiai {{ limit }} simbolių."
+                max: 30
+                minMessage: "Paieškos frazė per ilga, turi būti daugiausiai {{ limit }} simbolių."
+
 NfqAkademija\FrontendBundle\Entity\Photo:
     properties:
         fileName:
@@ -13,23 +24,19 @@ NfqAkademija\FrontendBundle\Entity\Photo:
                 minHeightMessage: "Nuotraukos aukštis per mažas."
             - File:
                 maxSize: 5242880
-                maxSizeMessage: "Nuotraukos per didelė."
+                maxSizeMessage: "Pasirinktas per didelis failas."
         title:
             - NotBlank:
                 message: "Nuotraukos aktraštė patikta tuščia."
             - Length:
-                  min: 5
-                  minMessage: "Nuotraukos aptraštė per trumpa, turi būti mažiausiai {{ limit }} simbolių."
-                  max: 100
-                  minMessage: "Nuotraukos aptraštė per ilga, turi būti daugiausiai {{ limit }} simbolių."
+                min: 5
+                minMessage: "Nuotraukos aptraštė per trumpa, turi būti mažiausiai {{ limit }} simbolių."
+                max: 100
+                minMessage: "Nuotraukos aptraštė per ilga, turi būti daugiausiai {{ limit }} simbolių."
         tags:
             - Count:
-                  min: 1
-                  max: 5
-                  minMessage: "Iraškite bent vieną paieškos frazę."
-                  maxMessage: "Daugiausiai galite pridėti {{ limit }} paieškos frazių"
-#            - Collection:
-#                  fields:
-#                      name:
-#                          - NotBlank:
-#                              message: "Nuotraukos aktraštė patikta tuščia.ddddddddd"
+                min: 1
+                max: 5
+                minMessage: "Privalote įrašyti bent vieną paieškos frazę."
+                maxMessage: "Pasirinkote per daug paieškos frazių. Daugiausiai galite pasirinkti {{ limit }}."
+            - Valid: ~

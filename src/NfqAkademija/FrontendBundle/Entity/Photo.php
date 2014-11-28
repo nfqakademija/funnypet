@@ -10,7 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
  * Photo
  *
  * @ORM\Table(name="photo")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="\NfqAkademija\FrontendBundle\Repositories\PhotoRepository")
  */
 class Photo
 {
@@ -60,7 +60,12 @@ class Photo
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
      *      )
      */
-    public $tags = array();
+    private $tags = array();
+
+    /**
+     * @var \NfqAkademija\FrontendBundle\Entity\Rating
+     */
+    private $currentUserRating;
 
     public function __construct()
     {
@@ -211,5 +216,28 @@ class Photo
     public function getRating()
     {
         return $this->rating;
+    }
+
+    /**
+     * Get current user rating
+     *
+     * @return \NfqAkademija\FrontendBundle\Entity\Rating
+     */
+    public function getCurrentUserRating()
+    {
+        return $this->currentUserRating;
+    }
+
+    /**
+     * Set current user rating
+     *
+     * @param \NfqAkademija\FrontendBundle\Entity\Rating $rating
+     * @return Photo
+     */
+    public function setCurrentUserRating(Rating $rating)
+    {
+        $this->currentUserRating = $rating;
+
+        return $this;
     }
 }

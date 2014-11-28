@@ -15,7 +15,7 @@ services:
         class: "%form_errors_serializer.class%"
     display_photo:
         class: "%display_photo.class%"
-        arguments: [@doctrine.orm.entity_manager]
+        arguments: [@doctrine.orm.entity_manager, @security.context]
     rating:
         class: "%rating.class%"
         arguments: [@doctrine.orm.entity_manager, @security.context, @display_photo]

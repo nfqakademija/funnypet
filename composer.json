@@ -19,10 +19,7 @@
         "sensio/framework-extra-bundle": "~3.0",
         "incenteev/composer-parameter-handler": "~2.0",
         "friendsofsymfony/user-bundle": "~2.0@dev",
-        "hwi/oauth-bundle": "0.4.*@dev",
-        "twitter/bootstrap": "3.3.*",
-        "components/jquery": "~2.1",
-        "leafo/lessphp": "0.5.*"
+        "hwi/oauth-bundle": "0.4.*@dev"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",

@@ -1,12 +1,10 @@
-var $collectionHolder;
-
 // setup an "add a tag" link
-var $addTagLink = $('<a href="#" class="add_tag_link">Add a tag</a>');
-var $newLinkLi = $('<li></li>').append($addTagLink);
+var $addTagLink = $('<a href="#" class="add_tag_link">Pridėti paieškos frazę</a>');
+var $newLinkLi = $('<div></div>').append($addTagLink);
 
-jQuery(document).ready(function() {
+$(document).ready(function() {
     // Get the ul that holds the collection of tags
-    var $collectionHolder = $('ul.tags');
+    var $collectionHolder = $('div.tags');
 
     // add the "add a tag" anchor and li to the tags ul
     $collectionHolder.append($newLinkLi);
@@ -22,8 +20,6 @@ jQuery(document).ready(function() {
         // add a new tag form (see code block below)
         addTagForm($collectionHolder, $newLinkLi);
     });
-
-
 });
 
 function addTagForm($collectionHolder, $newLinkLi) {
@@ -41,19 +37,14 @@ function addTagForm($collectionHolder, $newLinkLi) {
     $collectionHolder.data('index', index + 1);
 
     // Display the form in the page in an li, before the "Add a tag" link li
-    var $newFormLi = $('<li></li>').append(newForm);
+    var $newFormLi = $('<div></div>').append(newForm);
 
     // also add a remove button, just for this example
-    $newFormLi.append('<a href="#" class="remove-tag">x</a>');
+    //$newFormLi.append('<a href="#" class="remove-tag">x</a>');
 
     $newLinkLi.before($newFormLi);
-
-    // handle the removal, just for this example
-    $('.remove-tag').click(function(e) {
-        e.preventDefault();
-
-        $(this).parent().remove();
-
-        return false;
-    });
 }
+
+$(document).on('click', '.remove-tag', function(e) {
+    $(this).parent().parent().remove();
+});

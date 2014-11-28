@@ -1,21 +1,42 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <link rel="icon" href="../../favicon.ico">
+<header>
+    {#{% block hwi_oauth_content %}#}
+        {#{% if error is defined and error %}#}
+            {#<span>{{ error }}</span>#}
+        {#{% endif %}#}
+        {#{% for owner in hwi_oauth_resource_owners() %}#}
+            {#<a href="{{ hwi_oauth_login_url(owner) }}">{{ owner | trans({}, 'HWIOAuthBundle') }}</a> <br />#}
+        {#{% endfor %}#}
+    {#{% endblock hwi_oauth_content %}#}
 
-    <title>Starter Template for Bootstrap</title>
+    {#<a href="{{ path('fos_user_security_logout') }}">logout</a>#}
+    {#<br />#}
+    <nav class="navbar navbar-inverse navbar-static-top" role="navigation">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="{{ url("nfq_akademija_frontend_index") }}">Funny Pet</a>
+            </div>
 
-    <!-- Bootstrap core CSS -->
-    <link href="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li><a href="{{ url("nfq_akademija_frontend_upload") }}">Įkelti nuotrauką</a></li>
+                </ul>
 
-    <!-- Custom styles for this template -->
-    <link href="{{ asset('bundles/nfqakademijafrontend/css/starter-template.css') }}" rel="stylesheet">
+                <form class="navbar-form navbar-right" role="search">
+                    <div class="right-inner-addon">
+                        <i class="glyphicon glyphicon-search"></i>
+                        <input type="search" class="form-control" placeholder="Search">
+                    </div>
+                </form>
 
-</head>
-
-<body>
+            </div><!-- /.navbar-collapse -->
+        </div><!-- /.container-fluid -->
+    </nav>
+</header>

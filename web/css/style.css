@@ -1,0 +1,45 @@
+/*Search*/
+.right-inner-addon {
+    position: relative;
+}
+.right-inner-addon input {
+    padding-right: 30px;
+}
+.right-inner-addon i {
+    position: absolute;
+    right: 0px;
+    padding: 10px 12px;
+    pointer-events: none;
+}
+
+/*Custom*/
+body {
+    background: #E3E3E3;
+}
+.container-custom {
+    background-color: #ffffff;
+    border-radius: 4px;
+}
+.row-custom {
+    padding: 20px 10px;
+}
+.upload-tag {
+    padding-bottom: 10px;
+}
+.remove-tag {
+    cursor: pointer;
+}
+.fileinput-button {
+    overflow: hidden;
+    position: relative;
+}
+.fileinput-button input {
+    cursor: pointer;
+    direction: ltr;
+    font-size: 200px;
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}

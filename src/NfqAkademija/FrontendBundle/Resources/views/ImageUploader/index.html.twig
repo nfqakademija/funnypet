@@ -1,64 +1,61 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {% include ('NfqAkademijaFrontendBundle:Blocks:header.html.twig') %}
 
-    {{ form_start(imageUploader, {'attr': {'novalidate': 'novalidate'}}) }}
+    <div class="container container-custom">
+        <div class="row row-custom">
 
-            {{ form_label(imageUploader.title, "Nuotraukos antraštė") }}
-            {{ form_widget(imageUploader.title) }}
-            <br />
+            <div role="alert" class="alert alert-danger hide" id="error"></div>
+            <div role="alert" class="alert alert-success hide" id="success"></div>
 
-            {{ form_label(imageUploader.tags, "Paieškos frazės") }}
-            <ul class="tags" data-prototype="{{ form_widget(imageUploader.tags.vars.prototype)|e }}">
-                {% for tag in imageUploader.tags %}
-                    <li>{{ form_row(tag.name) }}</li>
-                {% endfor %}
-            </ul>
-            {% do imageUploader.tags.setRendered() %}
+            {{ form_start(imageUploader, {'attr': {'novalidate': 'novalidate', 'role': 'form', 'class': 'form-horizontal'}}) }}
+                <div class="form-group">
+                    {{ form_label(imageUploader.title, "Nuotraukos antraštė", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                    <div class="col-sm-10">
+                        {{ form_widget(imageUploader.title, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_label(imageUploader.tags, "Paieškos frazės", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                    <div class="col-sm-10 tags"
+                            data-prototype="{% filter escape %}
+                            {% include 'NfqAkademijaFrontendBundle:Blocks:prototype.html.twig' with { 'item': imageUploader.tags.vars.prototype } %}
+                            {% endfilter %}">
+                    </div>
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <p class="help-block">Paieškos frazė naudojama nuotraukoms surasti paieškoje.</p>
+                    </div>
+                    {% do imageUploader.tags.setRendered() %}
 
-            <br />
-            {{ form_label(imageUploader.fileName, "Nuotrauka") }}
-            {{ form_widget(imageUploader.fileName, {'attr': {'class': 'file_name'}}) }}
+                </div>
+                <div class="form-group">
+                    {{ form_label(imageUploader.fileName, "Nuotrauka", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                    <div class="col-sm-10">
+                        <span class="btn btn-danger fileinput-button">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            <span>Pasirinkite nuotrauką...</span>
+                            <!-- The file input field used as target for the file upload widget -->
+                            {{ form_widget(imageUploader.fileName, {'attr': {'class': 'file_name'}}) }}
+                        </span>
+                        <span id="selected_photo_name"></span>
+                    </div>
+                </div>
+                <div class="col-sm-offset-2 col-sm-10">
+                {{ form_row(imageUploader.upload, {'attr': {'class': 'upload btn btn-danger btn-lg btn-block', 'disabled': 'disabled'}}) }}
+                </div>
 
-            {{ form_row(imageUploader.upload, {'attr': {'class': 'upload'}}) }}
+            {{ form_end(imageUploader) }}
 
-    {{ form_end(imageUploader) }}
-
+        </div>
+    </div>
 {% endblock %}
 
 {% block javascripts %}
-{{ parent() }}
-
-    <script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
-    <script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
-    <script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload.js"></script>
-
-    <script type="text/javascript" src="{{ asset("bundles/nfqakademijafrontend/js/formTags.js") }}"></script>
-
-    <script type="text/javascript">
-        $(document).on("click", ".upload", function(event) {
-            console.log(1);
-            event.preventDefault();
-        });
-
-        $(document).ready(function(){
-            $(".file_name").fileupload({
-                dataType: 'json',
-                Default:true,
-                singleFileUploads: true,
-                success: function (msg) {
-
-                },
-                add: function (e, data) {
-                    $(".upload").prop("disabled",false);
-                    $(".upload").off('click').on('click',function (event) {
-                        event.preventDefault();
-                        $(".upload").prop("disabled",true);
-                        data.submit();
-                    });
-                }
-            });
-        });
-    </script>
-
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset("js/jquery.ui.widget.js") }}"></script>
+    <script type="text/javascript" src="{{ asset("js/jquery.iframe-transport.js") }}"></script>
+    <script type="text/javascript" src="{{ asset("js/jquery.fileupload.js") }}"></script>
+    <script type="text/javascript" src="{{ asset("js/form_tags.js") }}"></script>
+    <script type="text/javascript" src="{{ asset("js/upload_action.js") }}"></script>
 {% endblock %}
