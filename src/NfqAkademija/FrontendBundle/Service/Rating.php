@@ -52,7 +52,11 @@ class Rating
                 $rating = $this->getRating($photo, $this->user);
                 if (!$rating instanceof RatingEntity) {
                     $this->setRating($photo, $this->user, $ratingValue);
-                    return array("success" => "Nuotrauka sėkmingai įvertinta.");
+                    return array(
+                        "success" => "Nuotrauka sėkmingai įvertinta.",
+                        "userRating" => $ratingValue,
+                        "rating" => $photo->getRating()
+                    );
                 } else {
                     return array("error" => "Jūs jau balsavote.");
                 }
@@ -98,6 +102,12 @@ class Rating
      */
     private function setRating(Photo $photo, User $user, $ratingValue)
     {
+        $photo->setRating(
+            $photo->getRating()+$ratingValue
+        );
+        $this->entityManager->persist($photo);
+        $this->entityManager->flush();
+
         $rating = new RatingEntity();
         $rating->setUser($user)
                ->setPhoto($photo)

@@ -1,7 +1,3 @@
-nfq_akademija_user_admin:
-    path:     /admin
-    defaults: { _controller: NfqAkademijaUserBundle:Login:index }
-
 nfq_akademija_user_login:
     path:     /login/
     defaults: { _controller: NfqAkademijaUserBundle:Login:login }

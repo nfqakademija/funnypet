@@ -88,7 +88,7 @@ hwi_oauth:
     resource_owners:
         facebook:
             type:                facebook
-            client_id:           "1042120139147422"
-            client_secret:       "756376064f15cd2ee982373a9b7dfb23"
+            client_id:           "%facebook_client_id%"
+            client_secret:       "%facebook_client_secret%"
             scope:               "email"
 # here you will add one (or more) configurations for resource owners

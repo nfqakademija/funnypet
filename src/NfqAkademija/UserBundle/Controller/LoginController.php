@@ -9,11 +9,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class LoginController extends ConnectController
 {
-    public function indexAction()
-    {
-        return $this->render('NfqAkademijaUserBundle:Admin:index.html.twig', array());
-    }
-
     public function loginAction(Request $request)
     {
         $result = parent::connectAction($request);

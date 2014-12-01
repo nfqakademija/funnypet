@@ -3,71 +3,23 @@
 {% block body %}
     {% include ('NfqAkademijaFrontendBundle:Blocks:header.html.twig') %}
 
-    <div class="container" id="postswrapper">
-        <div class="row">
+    <div class="container">
+        <div class="row-fluid" id="postswrapper">
             {% include ("NfqAkademijaFrontendBundle:DisplayHandler:scroll.html.twig") %}
+        </div>
+
+        <div id="scroll_loader" class="clearfix scroll-loader">
+            <img src="{{ asset("css/img/loading.gif") }}" alt="Loading..." />
         </div>
     </div>
 
-    {#<div id="wrapper">#}
-        {#<div id="postswrapper">#}
-            {#{% for photo in photos %}#}
-            {#<div class="item">#}
-                {#<b>{{ photo.title }}</b><br>#}
-                {#<img src="/uploads/thumb/{{ photo.fileName }}.png" alt="{{ photo.title }}" /><br>#}
-
-                {#{% for tag in photo.tags %}#}
-                    {#<li>{{ tag.name }}, </li>#}
-                {#{% endfor %}#}
-
-                {#{% if photo.currentUserRating %}#}
-                    {#<h1>{{ photo.currentUserRating.rating }}</h1>#}
-                {#{% else %}#}
-                {#<div class="like"><a href="{{ path('nfq_akademija_frontend_rating_like', {'photo_id': photo.id}) }}">Like</a></div>#}
-                {#<div class="dislike"><a href="{{ path('nfq_akademija_frontend_rating_dislike', {'photo_id': photo.id}) }}">Dislike</a></div>#}
-                {#{% endif %}#}
-            {#</div>#}
-            {#{% endfor %}#}
-        {#</div>#}
-    {#</div>#}
-
-
-    <div id="loadmoreajaxloader" style="display:none;">Loading....</div>
-
-
+    {% include ("NfqAkademijaFrontendBundle:Blocks:modal.html.twig") %}
 {% endblock %}
-
 
 {% block javascripts %}
     {{ parent() }}
-    <script type="text/javascript">
 
-        var scrollPage = 10;
-        var scrollStop = false;
-        var scrollContinue = true;
-        $(window).scroll(function(){
-            if($(window).scrollTop() == $(document).height() - $(window).height()){
-                if (!scrollStop && scrollContinue) {
-                    scrollContinue = false;
-                    $('div#loadmoreajaxloader').show();
-                    $.ajax({
-                        url: "/ajax_scroll/" + scrollPage,
-                        success: function(html){
-                            if(html){
-                                scrollPage = scrollPage + 10;
-                                scrollContinue = true;
-                                $("#postswrapper").append(html);
-                                $('div#loadmoreajaxloader').hide();
-                            }else{
-                                scrollContinue = true
-                                scrollStop = true;
-                                $('div#loadmoreajaxloader').html('No more posts to show.');
-                            }
-                        }
-                    });
-                }
-            }
-        });
-    </script>
+    <script type="text/javascript" src="{{ asset("js/masonry.pkgd.min.js") }}"></script>
+    <script type="text/javascript" src="{{ asset("js/main.js") }}"></script>
 
 {% endblock %}

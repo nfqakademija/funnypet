@@ -12,9 +12,10 @@
     pointer-events: none;
 }
 
-/*Custom*/
+/* File upload page*/
 body {
     background: #E3E3E3;
+    padding-top: 70px;
 }
 .container-custom {
     background-color: #ffffff;
@@ -42,4 +43,48 @@ body {
     position: absolute;
     right: 0;
     top: 0;
+}
+
+/* Main */
+.thumbnail-img {
+    height: 240px;
+    width: 320px;
+    margin: 5px 0;
+    text-align: center;
+}
+.icon-like {
+    font-size: 40px;
+    cursor: pointer;
+}
+.rating-block {
+    left: 0;
+    bottom: 0;
+    margin: 10px 0 0 0;
+    text-align: center;
+}
+.rating-block span {
+    margin: 0 10px;
+}
+.tags-block {
+    padding: 5px 10px;
+}
+.rating {
+    font-size: 40px;
+    font-weight: bold;
+    color: #D41E21;
+}
+.rate-user-like {
+    color: green;
+    cursor: default;
+}
+.rate-user-dislike {
+    color: red;
+    cursor: default;
+}
+.scroll-loader {
+    display: none;
+    text-align: center;
+}
+.modal-text {
+    padding: 20px;
 }

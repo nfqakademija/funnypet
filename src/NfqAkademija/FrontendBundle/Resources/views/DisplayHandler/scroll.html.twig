@@ -1,8 +1,33 @@
 {% for photo in photos %}
-    <div class="col-md-4">
-        <b>{{ photo.title }}</b><br>
-        <img src="/uploads/thumb/{{ photo.fileName }}.png" alt="{{ photo.title }}" /><br>
-        <div class="like">Like</div>
-        <div class="dislike">Dislike</div>
+    <div class="col-md-6 col-lg-4 col-sm-6 col-xs-12 items-block">
+        <div class="well item">
+            <div class="title">
+                <strong>{{ photo.title }}</strong>
+            </div>
+            <div class="thumbnail-img">
+                <img src="/uploads/thumb/{{ photo.fileName }}.png" alt="{{ photo.title }}" />
+            </div>
+            <div>
+                {% for tag in photo.tags %}
+                <span class="tags-block">{{ tag.name }} </span>
+                {% endfor %}
+            </div>
+
+            <div class="rating-block">
+                <span class="rating">{{ photo.rating }}</span>
+                {% if photo.currentUserRating %}
+                    {% if photo.currentUserRating.rating > 0 %}
+                        <span class="glyphicon glyphicon-hand-up icon-like rate-user-like"></span>
+                    {% else %}
+                        <span class="glyphicon glyphicon-hand-down icon-like rate-user-dislike"></span>
+                    {% endif %}
+                {% else %}
+                    <span class="glyphicon glyphicon-hand-up icon-like rate-like"
+                          data-url="{{ path('nfq_akademija_frontend_rating_like', {'photo_id': photo.id}) }}"></span>
+                    <span class="glyphicon glyphicon-hand-down icon-like rate-like"
+                          data-url="{{ path('nfq_akademija_frontend_rating_dislike', {'photo_id': photo.id}) }}"></span>
+                {% endif %}
+            </div>
+        </div>
     </div>
 {% endfor %}

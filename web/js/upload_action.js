@@ -1,4 +1,7 @@
 $(document).ready(function(){
+    /**
+     * Stop form submit
+     */
     $(".upload").click(function(event){
         event.preventDefault();
     });

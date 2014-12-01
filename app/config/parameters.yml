@@ -15,3 +15,5 @@ parameters:
     debug_toolbar: true
     debug_redirects: false
     use_assetic_controller: true
+    facebook_client_id: "1042120139147422"
+    facebook_client_secret: "756376064f15cd2ee982373a9b7dfb23"
