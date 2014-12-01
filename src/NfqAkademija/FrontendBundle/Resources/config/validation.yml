@@ -1,26 +1,42 @@
-##src/NfqAkademija/NfqAkademijaFrontendBundle/Resources/config/validation.yml
-#NfqAkademija\FrontendBundle\Entity\Photo:
-#    properties:
-#        fileName:
-#            - NotBlank: ~
-#            - Image:
-#                mimeTypes: [image/jpeg, image/png]
-#                mimeTypesMessage: "Please upload a valid image"
-#                minWidth: 300
-#                minWidthMessage: "Image width is too small"
-#                maxWidth: 2000
-#                maxWidthMessage: "Image width is too big"
-#                minHeight: 300
-#                minHeightMessage: "Image height is too small"
-#                maxHeight: 2000
-#                maxHeightMessage: "Image height is too big"
-#            - File:
-#                maxSize: 6000000
-#                maxSizeMessage: "Image is to large"
-#        title:
-#            - NotBlank: ~
-#            - Length:
-#                  min: 10
-#                  minMessage: "Photo title must be at least {{ limit }} characters long"
-#                  max: 100
-#                  maxMessage: "Photo title must cannot be longer than {{ limit }} characters long"
+#src/NfqAkademija/NfqAkademijaFrontendBundle/Resources/config/validation.yml
+NfqAkademija\FrontendBundle\Entity\Tag:
+    properties:
+        name:
+            - NotBlank:
+                message: "Paieškos frazė palikta tuščia."
+            - Length:
+                min: 3
+                minMessage: "Paieškos frazė per trumpa, turi būti mažiausiai {{ limit }} simbolių."
+                max: 30
+                minMessage: "Paieškos frazė per ilga, turi būti daugiausiai {{ limit }} simbolių."
+
+NfqAkademija\FrontendBundle\Entity\Photo:
+    properties:
+        fileName:
+            - NotBlank:
+                message: "Nepasirinkta nuotrauka."
+            - Image:
+                mimeTypes: [image/jpeg, image/png]
+                mimeTypesMessage: "Neteisingas failo tipas."
+                minWidth: 300
+                minWidthMessage: "Nuotraukos plotis per mažas."
+                minHeight: 300
+                minHeightMessage: "Nuotraukos aukštis per mažas."
+            - File:
+                maxSize: 5242880
+                maxSizeMessage: "Pasirinktas per didelis failas."
+        title:
+            - NotBlank:
+                message: "Nuotraukos aktraštė patikta tuščia."
+            - Length:
+                min: 5
+                minMessage: "Nuotraukos aptraštė per trumpa, turi būti mažiausiai {{ limit }} simbolių."
+                max: 100
+                minMessage: "Nuotraukos aptraštė per ilga, turi būti daugiausiai {{ limit }} simbolių."
+        tags:
+            - Count:
+                min: 1
+                max: 5
+                minMessage: "Privalote įrašyti bent vieną paieškos frazę."
+                maxMessage: "Pasirinkote per daug paieškos frazių. Daugiausiai galite pasirinkti {{ limit }}."
+            - Valid: ~

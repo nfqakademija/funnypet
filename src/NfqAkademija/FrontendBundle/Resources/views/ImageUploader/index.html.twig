@@ -1,71 +1,60 @@
 {% extends 'base.html.twig' %}
 
-{#{% extends "NfqAkademijaFrontendBundle:Blocks:base.html.twig" %}#}
-
-{#{% block body %}#}
-
-    {#{{ form_start(imageUploader, {'attr': {'novalidate': 'novalidate', "class": "form-horizontal"}}) }}#}
-        {#{{ form_errors(imageUploader) }}#}
-
-        {#<div class="form-group">#}
-            {#{{ form_label(imageUploader.title, "Photo title", {"label_attr": {"class": "col-sm-2 control-label"}}) }}#}
-            {#&#123;&#35;{{ form_errors(imageUploader.title) }}&#35;&#125;#}
-            {#<div class="col-sm-10">#}
-            {#{{ form_widget(imageUploader.title, {"attr": {"class": "form-control"}}) }}#}
-            {#</div>#}
-        {#</div>#}
-
-        {#<div class="form-group">#}
-            {#{{ form_label(imageUploader.fileName, "Photo", {"label_attr": {"class": "col-sm-2 control-label"}}) }}#}
-            {#&#123;&#35;{{ form_errors(imageUploader.fileName) }}&#35;&#125;#}
-            {#<div class="col-sm-10">#}
-            {#{{ form_widget(imageUploader.fileName) }}#}
-            {#</div>#}
-        {#</div>#}
-
-        {#<div class="form-group">#}
-            {#<div class="col-sm-offset-2 col-sm-10">#}
-            {#{{ form_row(imageUploader.upload, {'attr': {'class': 'btn btn-primary btn-lg pull-left'}} ) }}#}
-            {#</div>#}
-        {#</div>#}
-
-    {#{{ form_end(imageUploader) }}#}
-
-{#{% endblock %}#}
-
-{#{% block headerDescription %}#}
-
-    {#<h1>Upload your pet photo</h1>#}
-
-{#{% endblock %}#}
-
-
 {% block body %}
+    {% include ('NfqAkademijaFrontendBundle:Blocks:header.html.twig') %}
 
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-<script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/vendor/jquery.ui.widget.js"></script>
-<script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.iframe-transport.js"></script>
-<script type="text/javascript" src="http://blueimp.github.io/jQuery-File-Upload/js/jquery.fileupload.js"></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        $('#fileupload').fileupload({
-            dataType: 'json',
-            autoUpload: false,
-            Default:true,
-            success: function (msg) {
+    <div class="container container-custom">
+        <div class="row row-custom">
 
-            },
-            add: function (e, data) {
-                data.context = $('<button/>').text('Click to Upload')
-                        .appendTo(document.body)
-                        .click(function () {
-                            data.context = $('<p/>').text('Uploading...').replaceAll($(this));
-                            data.submit();
-                        });
-            }
-        });
-    });
-</script>
+            <div role="alert" class="alert alert-danger hide" id="error"></div>
+            <div role="alert" class="alert alert-success hide" id="success"></div>
 
-<input id="fileupload" type="file" name="files[]" data-url="{{ oneup_uploader_endpoint('gallery') }}" multiple />
+            {{ form_start(imageUploader, {'attr': {'novalidate': 'novalidate', 'role': 'form', 'class': 'form-horizontal'}}) }}
+                <div class="form-group">
+                    {{ form_label(imageUploader.title, "Nuotraukos antraštė", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                    <div class="col-sm-10">
+                        {{ form_widget(imageUploader.title, {'attr': {'class': 'form-control'}}) }}
+                    </div>
+                </div>
+                <div class="form-group">
+                    {{ form_label(imageUploader.tags, "Paieškos frazės", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                    <div class="col-sm-10 tags"
+                            data-prototype="{% filter escape %}
+                            {% include 'NfqAkademijaFrontendBundle:Blocks:prototype.html.twig' with { 'item': imageUploader.tags.vars.prototype } %}
+                            {% endfilter %}">
+                    </div>
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <p class="help-block">Paieškos frazė naudojama nuotraukoms surasti paieškoje.</p>
+                    </div>
+                    {% do imageUploader.tags.setRendered() %}
+
+                </div>
+                <div class="form-group">
+                    {{ form_label(imageUploader.fileName, "Nuotrauka", {'label_attr': {'class': 'col-sm-2 control-label'}}) }}
+                    <div class="col-sm-10">
+                        <span class="btn btn-danger fileinput-button">
+                            <i class="glyphicon glyphicon-plus"></i>
+                            <span>Pasirinkite nuotrauką...</span>
+                            <!-- The file input field used as target for the file upload widget -->
+                            {{ form_widget(imageUploader.fileName, {'attr': {'class': 'file_name'}}) }}
+                        </span>
+                        <span id="selected_photo_name"></span>
+                    </div>
+                </div>
+                <div class="col-sm-offset-2 col-sm-10">
+                {{ form_row(imageUploader.upload, {'attr': {'class': 'upload btn btn-danger btn-lg btn-block', 'disabled': 'disabled'}}) }}
+                </div>
+            {{ form_end(imageUploader) }}
+
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+    <script type="text/javascript" src="{{ asset("js/jquery.ui.widget.js") }}"></script>
+    <script type="text/javascript" src="{{ asset("js/jquery.iframe-transport.js") }}"></script>
+    <script type="text/javascript" src="{{ asset("js/jquery.fileupload.js") }}"></script>
+    <script type="text/javascript" src="{{ asset("js/form_tags.js") }}"></script>
+    <script type="text/javascript" src="{{ asset("js/upload_action.js") }}"></script>
 {% endblock %}

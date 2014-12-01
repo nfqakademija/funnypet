@@ -8,22 +8,17 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 class PhotoType extends AbstractType
 {
-    /**
-     * @param FormBuilderInterface $builder
-     * @param array $options
-     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('title')
-            ->add('fileName')
-            ->add('tags')
-        ;
+        $builder->add('title')
+                ->add('tags', 'collection', array(
+                    'type' => new TagType(),
+                    'allow_add'    => true,
+                ))
+                ->add('fileName', 'file')
+                ->add('upload', 'submit');
     }
-    
-    /**
-     * @param OptionsResolverInterface $resolver
-     */
+
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
@@ -31,11 +26,8 @@ class PhotoType extends AbstractType
         ));
     }
 
-    /**
-     * @return string
-     */
     public function getName()
     {
-        return 'nfqakademija_frontendbundle_photo';
+        return 'photo';
     }
 }

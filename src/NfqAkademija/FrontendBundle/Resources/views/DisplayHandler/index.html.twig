@@ -1,22 +1,25 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {% include ('NfqAkademijaFrontendBundle:Blocks:header.html.twig') %}
 
-    <h1>Home page</h1>
+    <div class="container">
+        <div class="row-fluid" id="postswrapper">
+            {% include ("NfqAkademijaFrontendBundle:DisplayHandler:scroll.html.twig") %}
+        </div>
 
-    {% block hwi_oauth_content %}
-        {% if error is defined and error %}
-            <span>{{ error }}</span>
-        {% endif %}
-        {% for owner in hwi_oauth_resource_owners() %}
-            <a href="{{ hwi_oauth_login_url(owner) }}">{{ owner | trans({}, 'HWIOAuthBundle') }}</a> <br />
-        {% endfor %}
-    {% endblock hwi_oauth_content %}
+        <div id="scroll_loader" class="clearfix scroll-loader">
+            <img src="{{ asset("css/img/loading.gif") }}" alt="Loading..." />
+        </div>
+    </div>
 
-    <a href="{{ path('fos_user_security_logout') }}">logout</a>
-    <br />
-    <a href="{{ path('nfq_akademija_user_admin') }}">admin</a>
-    <br />
-    <a href="{{ path('nfq_akademija_frontend_upload') }}">upload</a>
+    {% include ("NfqAkademijaFrontendBundle:Blocks:modal.html.twig") %}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript" src="{{ asset("js/masonry.pkgd.min.js") }}"></script>
+    <script type="text/javascript" src="{{ asset("js/main.js") }}"></script>
 
 {% endblock %}

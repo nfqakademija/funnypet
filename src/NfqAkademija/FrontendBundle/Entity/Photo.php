@@ -4,12 +4,13 @@ namespace NfqAkademija\FrontendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\Common\Collections;
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * Photo
  *
  * @ORM\Table(name="photo")
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="\NfqAkademija\FrontendBundle\Repositories\PhotoRepository")
  */
 class Photo
 {
@@ -37,20 +38,39 @@ class Photo
     private $fileName;
 
     /**
+     * @var datetime
+     *
+     * @ORM\Column(name="created_date", type="datetime")
+     */
+    private $createdDate;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="rating", type="integer", options={"default" = 0})
+     */
+    private $rating;
+
+    /**
      * @var \Doctrine\Common\Collections\ArrayCollection $tags;
      *
-     * @ORM\ManyToMany(targetEntity="NfqAkademija\FrontendBundle\Entity\Tags", inversedBy="photos")
+     * @ORM\ManyToMany(targetEntity="NfqAkademija\FrontendBundle\Entity\Tag", inversedBy="photos", cascade={"persist"})
      * @ORM\JoinTable(name="photos_tags",
      *      joinColumns={@ORM\JoinColumn(name="photo_id", referencedColumnName="id")},
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
      *      )
      */
-    protected $tags;
+    private $tags = array();
 
+    /**
+     * @var \NfqAkademija\FrontendBundle\Entity\Rating
+     */
+    private $currentUserRating;
 
     public function __construct()
     {
-        $this->tags = new Collections\ArrayCollection();
+        $this->tags = new ArrayCollection();
+        $this->rating = 0;
     }
 
     /**
@@ -120,12 +140,14 @@ class Photo
     /**
      * Add tag
      *
-     * @param \NfqAkademija\FrontendBundle\Entity\Tags $tag
+     * @param \NfqAkademija\FrontendBundle\Entity\Tag $tag
      * @return Photo
      */
-    public function addTag(\NfqAkademija\FrontendBundle\Entity\Tags $tag)
+    public function addTag(Tag $tag)
     {
-        $this->tags[] = $tag;
+        if (!$this->tags->contains($tag)) {
+            $this->tags[] = $tag;
+        }
 
         return $this;
     }
@@ -133,9 +155,9 @@ class Photo
     /**
      * Remove tag
      *
-     * @param \NfqAkademija\FrontendBundle\Entity\Tags $tag
+     * @param \NfqAkademija\FrontendBundle\Entity\Tag $tag
      */
-    public function removeTag(\NfqAkademija\FrontendBundle\Entity\Tags $tag)
+    public function removeTag(Tag $tag)
     {
         $this->tags->removeElement($tag);
     }
@@ -148,5 +170,74 @@ class Photo
     public function getTags()
     {
         return $this->tags;
+    }
+
+    /**
+     * Set createdDate
+     *
+     * @param \DateTime $createdDate
+     * @return Photo
+     */
+    public function setCreatedDate($createdDate)
+    {
+        $this->createdDate = $createdDate;
+
+        return $this;
+    }
+
+    /**
+     * Get createdDate
+     *
+     * @return \DateTime 
+     */
+    public function getCreatedDate()
+    {
+        return $this->createdDate;
+    }
+
+    /**
+     * Set rating
+     *
+     * @param integer $rating
+     * @return Photo
+     */
+    public function setRating($rating)
+    {
+        $this->rating = $rating;
+
+        return $this;
+    }
+
+    /**
+     * Get rating
+     *
+     * @return integer 
+     */
+    public function getRating()
+    {
+        return $this->rating;
+    }
+
+    /**
+     * Get current user rating
+     *
+     * @return \NfqAkademija\FrontendBundle\Entity\Rating
+     */
+    public function getCurrentUserRating()
+    {
+        return $this->currentUserRating;
+    }
+
+    /**
+     * Set current user rating
+     *
+     * @param \NfqAkademija\FrontendBundle\Entity\Rating $rating
+     * @return Photo
+     */
+    public function setCurrentUserRating(Rating $rating)
+    {
+        $this->currentUserRating = $rating;
+
+        return $this;
     }
 }

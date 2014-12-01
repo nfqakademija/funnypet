@@ -1,6 +1,6 @@
-nfq_akademija_user_admin:
-    path:     /admin
-    defaults: { _controller: NfqAkademijaUserBundle:Admin:index }
+nfq_akademija_user_login:
+    path:     /login/
+    defaults: { _controller: NfqAkademijaUserBundle:Login:login }
 
 #FOSUserBundle routes
 fos_user_profile:

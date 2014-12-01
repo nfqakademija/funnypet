@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "d08c783fbb1afe5f543d1970ff10acf7",
+    "hash": "12732a83e44f58771fe641e7378c64d3",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1090,72 +1090,6 @@
             "time": "2014-09-30 13:30:58"
         },
         {
-            "name": "oneup/uploader-bundle",
-            "version": "v1.3.1",
-            "target-dir": "Oneup/UploaderBundle",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/1up-lab/OneupUploaderBundle.git",
-                "reference": "00bff0181fc1592134f1aa36469ea44d69585a9a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/1up-lab/OneupUploaderBundle/zipball/00bff0181fc1592134f1aa36469ea44d69585a9a",
-                "reference": "00bff0181fc1592134f1aa36469ea44d69585a9a",
-                "shasum": ""
-            },
-            "require": {
-                "symfony/finder": ">=2.2.0",
-                "symfony/framework-bundle": ">=2.2"
-            },
-            "require-dev": {
-                "amazonwebservices/aws-sdk-for-php": "1.5.*",
-                "knplabs/gaufrette": "0.2.*@dev",
-                "phpunit/phpunit": "~4.1",
-                "sensio/framework-extra-bundle": "2.*",
-                "symfony/browser-kit": "2.*",
-                "symfony/class-loader": "2.*",
-                "symfony/security-bundle": "2.*"
-            },
-            "suggest": {
-                "knplabs/knp-gaufrette-bundle": "0.1.*"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-0": {
-                    "Oneup\\UploaderBundle": ""
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "MIT"
-            ],
-            "authors": [
-                {
-                    "name": "Jim Schmid",
-                    "email": "js@1up.io",
-                    "homepage": "http://1up.io",
-                    "role": "Developer"
-                }
-            ],
-            "description": "Handles multi file uploads in Symfony2. Features included: Chunked upload, Orphans management, Gaufrette support.",
-            "homepage": "http://1up.io",
-            "keywords": [
-                "FancyUpload",
-                "FineUploader",
-                "MooUpload",
-                "Uploadify",
-                "YUI3 Uploader",
-                "blueimp",
-                "dropzone",
-                "fileupload",
-                "jQuery File Uploader",
-                "plupload",
-                "upload"
-            ],
-            "time": "2014-07-04 14:58:01"
-        },
-        {
             "name": "psr/log",
             "version": "1.0.0",
             "source": {
@@ -1877,6 +1811,50 @@
             ],
             "description": "Official version of PHPMD handled with Composer.",
             "time": "2014-09-25 15:56:22"
+        },
+        {
+            "name": "robloach/component-installer",
+            "version": "0.0.12",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/RobLoach/component-installer.git",
+                "reference": "1864f25db21fc173e02a359f646acd596c1b0460"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/RobLoach/component-installer/zipball/1864f25db21fc173e02a359f646acd596c1b0460",
+                "reference": "1864f25db21fc173e02a359f646acd596c1b0460",
+                "shasum": ""
+            },
+            "require": {
+                "kriswallsmith/assetic": "1.*",
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "composer/composer": "1.*"
+            },
+            "type": "composer-installer",
+            "extra": {
+                "class": "ComponentInstaller\\Installer"
+            },
+            "autoload": {
+                "psr-0": {
+                    "ComponentInstaller": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rob Loach",
+                    "email": "robloach@gmail.com",
+                    "homepage": "http://robloach.net"
+                }
+            ],
+            "description": "Allows installation of Components via Composer.",
+            "time": "2013-08-31 23:46:48"
         },
         {
             "name": "sensio/generator-bundle",

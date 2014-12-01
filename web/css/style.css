@@ -1,0 +1,90 @@
+/*Search*/
+.right-inner-addon {
+    position: relative;
+}
+.right-inner-addon input {
+    padding-right: 30px;
+}
+.right-inner-addon i {
+    position: absolute;
+    right: 0px;
+    padding: 10px 12px;
+    pointer-events: none;
+}
+
+/* File upload page*/
+body {
+    background: #E3E3E3;
+    padding-top: 70px;
+}
+.container-custom {
+    background-color: #ffffff;
+    border-radius: 4px;
+}
+.row-custom {
+    padding: 20px 10px;
+}
+.upload-tag {
+    padding-bottom: 10px;
+}
+.remove-tag {
+    cursor: pointer;
+}
+.fileinput-button {
+    overflow: hidden;
+    position: relative;
+}
+.fileinput-button input {
+    cursor: pointer;
+    direction: ltr;
+    font-size: 200px;
+    margin: 0;
+    opacity: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+/* Main */
+.thumbnail-img {
+    height: 240px;
+    width: 320px;
+    margin: 5px 0;
+    text-align: center;
+}
+.icon-like {
+    font-size: 40px;
+    cursor: pointer;
+}
+.rating-block {
+    left: 0;
+    bottom: 0;
+    margin: 10px 0 0 0;
+    text-align: center;
+}
+.rating-block span {
+    margin: 0 10px;
+}
+.tags-block {
+    padding: 5px 10px;
+}
+.rating {
+    font-size: 40px;
+    font-weight: bold;
+    color: #D41E21;
+}
+.rate-user-like {
+    color: green;
+    cursor: default;
+}
+.rate-user-dislike {
+    color: red;
+    cursor: default;
+}
+.scroll-loader {
+    display: none;
+    text-align: center;
+}
+.modal-text {
+    padding: 20px;
+}

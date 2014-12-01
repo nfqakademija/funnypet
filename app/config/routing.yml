@@ -6,6 +6,14 @@ nfq_akademija_frontend:
     resource: "@NfqAkademijaFrontendBundle/Resources/config/routing.yml"
     prefix:   /
 
-oneup_uploader:
-    resource: .
-    type: uploader
+#oneup_uploader:
+#    resource: .
+#    type: uploader
+#
+#oneup_uploader:
+#    mappings:
+#        gallery:
+#            frontend: custom
+#            custom_frontend:
+#                class: NfqAkademija\FrontendBundle\Controller\UploaderHandlerController
+#                name: MyFancyCustomUploader
