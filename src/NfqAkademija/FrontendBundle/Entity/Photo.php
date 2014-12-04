@@ -60,7 +60,7 @@ class Photo
      *      inverseJoinColumns={@ORM\JoinColumn(name="tag_id", referencedColumnName="id")}
      *      )
      */
-    private $tags = array();
+    private $tags;
 
     /**
      * @var \NfqAkademija\FrontendBundle\Entity\Rating

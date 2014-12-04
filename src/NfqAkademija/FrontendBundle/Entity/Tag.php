@@ -9,7 +9,7 @@ use Doctrine\Common\Collections;
  * Tag
  *
  * @ORM\Table(name="tag")
- * @ORM\Entity
+ * @ORM\Entity (repositoryClass="\NfqAkademija\FrontendBundle\Repositories\TagRepository")
  */
 class Tag
 {

@@ -88,3 +88,6 @@ body {
 .modal-text {
     padding: 20px;
 }
+.search-icon {
+    cursor: pointer;
+}

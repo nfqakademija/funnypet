@@ -12,9 +12,4 @@ class PhotoRepository extends EntityRepository
                     ->getRepository("NfqAkademijaFrontendBundle:Photo")
                     ->findBy(array(), array("createdDate" => "DESC"), 12, $start);
     }
-
-    public function searchByTags(array $tags)
-    {
-
-    }
 }

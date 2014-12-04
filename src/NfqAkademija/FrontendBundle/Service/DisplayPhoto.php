@@ -3,7 +3,9 @@
 namespace NfqAkademija\FrontendBundle\Service;
 
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Query\ResultSetMapping;
 use NfqAkademija\UserBundle\Entity\User;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContext;
 
 class DisplayPhoto
@@ -33,11 +35,16 @@ class DisplayPhoto
      * Used in dashboard and infinity scroll
      *
      * @param int $start
-     * @return array|\NfqAkademija\FrontendBundle\Entity\Photo[]
+     * @param Request $request
+     * @return array|\NfqAkademija\FrontendBundle\Entity\Photo[]|void
      */
-    public function getDashboardPhotos($start = 0)
+    public function getDashboardPhotos(Request $request, $start = 0)
     {
-        $photos = $this->getPhotos($start);
+        if ($request->get("q")) {
+            $photos = $this->searchPhotos($request, $start);
+        } else {
+            $photos = $this->getPhotos($start);
+        }
 
         $this->setCurrentUserPhotoRating(
             $photos,
@@ -135,5 +142,114 @@ class DisplayPhoto
         return $this->entityManager
                     ->getRepository("NfqAkademijaFrontendBundle:Photo")
                     ->find($photoId);
+    }
+
+    /**
+     * Search tags for search auto complete
+     *
+     * @param Request $request
+     * @return array
+     */
+    public function searchTags(Request $request)
+    {
+        $return = array();
+
+        $tags = $this->entityManager
+                     ->getRepository("NfqAkademijaFrontendBundle:Tag")
+                     ->findTagsByTerm(trim($request->get('term')));
+
+        foreach ($tags as $tag) {
+            $return[] = array(
+                "id" => $tag->getName(),
+                "label" => $tag->getName(),
+                "value" => $tag->getName()
+            );
+        }
+
+        return $return;
+    }
+
+    /**
+     * Find photos by search term
+     *
+     * @param Request $request
+     * @param $start
+     * @return array
+     */
+    public function searchPhotos(Request $request, $start)
+    {
+        $tags_ids = array();
+
+        $tags = $this->entityManager
+            ->getRepository("NfqAkademijaFrontendBundle:Tag")
+            ->findBy(array("name" => $this->getSearchTags(urldecode($request->get('q')))));
+
+        foreach ($tags as $tag) {
+            $tags_ids[] = $tag->getId();
+        }
+
+        if (!empty($tags_ids)) {
+            $sql = "
+            SELECT
+              p.id AS id_photo,
+              p.title,
+              p.file_name,
+              p.created_date,
+              p.rating,
+              t.id AS id_tag,
+              t.name
+            FROM photo p
+              LEFT JOIN photos_tags pt ON p.id = pt.photo_id AND pt.tag_id IN (".implode(",", $tags_ids).")
+              LEFT JOIN tag t ON t.id = pt.tag_id
+            GROUP BY p.id
+            ORDER BY
+              COUNT(pt.photo_id) DESC,
+              p.created_date DESC
+            LIMIT :start, 12
+            ";
+
+            $rsm = new ResultSetMapping();
+            $rsm->addEntityResult('NfqAkademijaFrontendBundle:Photo', 'p');
+            $rsm->addFieldResult('p', 'id_photo', 'id');
+            $rsm->addFieldResult('p', 'file_name', 'fileName');
+            $rsm->addFieldResult('p', 'title', 'title');
+            $rsm->addFieldResult('p', 'created_date', 'createdDate');
+            $rsm->addFieldResult('p', 'rating', 'rating');
+            $rsm->addJoinedEntityResult('NfqAkademijaFrontendBundle:Tag', 't', 'p', 'tags');
+            $rsm->addFieldResult('t', 'id_tag', 'id');
+            $rsm->addFieldResult('t', 'name', 'name');
+
+            $result =  $this->entityManager
+                ->createNativeQuery($sql, $rsm)
+                ->setParameter("start", (int) $start)
+                ->getResult();
+
+            //Reset entity that will be displayed all tags
+            foreach ($result as $photo) {
+                $this->entityManager->refresh($photo);
+            }
+
+            return $result;
+        }
+
+        return array();
+    }
+
+    /**
+     * Convert tags from string to array
+     *
+     * @param string $tags Tags string. Separate all tags by comma
+     * @return array
+     */
+    private function getSearchTags($tags)
+    {
+        $tag_array = array();
+        if ($tags) {
+            foreach (explode(",", $tags) as $tag) {
+                $tag_array[] = trim($tag);
+            }
+        }
+
+        return array_unique($tag_array);
     }
 }

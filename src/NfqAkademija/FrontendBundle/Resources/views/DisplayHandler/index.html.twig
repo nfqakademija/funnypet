@@ -16,10 +16,14 @@
     {% include ("NfqAkademijaFrontendBundle:Blocks:modal.html.twig") %}
 {% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+    <link href="{{ asset("css/jquery-ui.css") }}" type="text/css" rel="stylesheet">
+{% endblock %}
+
 {% block javascripts %}
     {{ parent() }}
-
     <script type="text/javascript" src="{{ asset("js/masonry.pkgd.min.js") }}"></script>
+    <script type="text/javascript" src="{{ asset("js/jquery-ui.js") }}"></script>
     <script type="text/javascript" src="{{ asset("js/main.js") }}"></script>
-
 {% endblock %}
