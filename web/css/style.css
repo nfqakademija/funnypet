@@ -47,10 +47,14 @@ body {
 
 /* Main */
 .thumbnail-img {
-    height: 240px;
-    width: 320px;
+    height: 100%;
+    width: 100%;
     margin: 5px 0;
     text-align: center;
+}
+.thumbnail-img img{
+    width: 100%;
+    display: block;
 }
 .icon-like {
     font-size: 40px;
