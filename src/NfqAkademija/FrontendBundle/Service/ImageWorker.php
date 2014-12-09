@@ -16,6 +16,7 @@ class ImageWorker
 
     /**
      * $file has to be an absolute path to image file with file name and extension
+     *
      * @param string $file
      */
     public function __construct($file)
@@ -33,6 +34,7 @@ class ImageWorker
 
     /**
      * Save image to png format
+     *
      * @param string $name - file name
      * @param string $path - absolute path where to save image
      */
@@ -43,6 +45,7 @@ class ImageWorker
 
     /**
      * Create thumbnail image
+     *
      * @param $name
      * @param $path
      */

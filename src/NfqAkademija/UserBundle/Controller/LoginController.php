@@ -9,6 +9,10 @@ use Symfony\Component\HttpFoundation\Response;
 
 class LoginController extends ConnectController
 {
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
     public function loginAction(Request $request)
     {
         $result = parent::connectAction($request);
