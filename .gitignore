@@ -4,4 +4,5 @@ vendor/
 .idea/
 .vagrant/
 app/config/parameters.yml
-bin/
+bin/*
+!bin/.gitkeep
